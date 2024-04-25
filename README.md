@@ -11,3 +11,6 @@ Future TODO's:
 
 # Note01:
 Voor de komende weken probeer elke dag aan OPT te zitten. Hierdoor kun je de werk verminderen voor jezelf en kan je eerder klaar zijn door vroeg feedback te ontvangen.
+
+## (Edit)
+Ik kan alvast kijken hoe ik de data ga opslaan. Hoogstwaarschijnlijk gewoon een database opzetten. Bekijk het morgen of in het weekend. Heb jer zin in :)
