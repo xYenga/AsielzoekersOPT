@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 public class Gemeente {
     private String name;
-    private int inwoners;
+    private int aantalInwoners;
+    private int aangebodenPlaatsen;
     private ArrayList<Gemeente> uitkeringen;
 
-    public Gemeente(int inwoners, ArrayList<Gemeente> uitkeringen) {
-        this.inwoners = inwoners;
+    public Gemeente(String name,int aantalInwoners, ArrayList<Gemeente> uitkeringen) {
+        this.name = name;
+        this.aantalInwoners = aantalInwoners;
         this.uitkeringen = uitkeringen;
     }
 
@@ -19,11 +21,17 @@ public class Gemeente {
         this.name = name;
     }
 
-    public int getInwoners() {
-        return inwoners;
+    public int getAantalInwoners() {
+        return aantalInwoners;
     }
-    public void setInwoners(int inwoners) {
-        this.inwoners = inwoners;
+    public void setAantalInwoners(int inwoners) {
+        this.aantalInwoners = inwoners;
     }
 
+    public int getAangebodenPlaatsen() {
+        return aangebodenPlaatsen;
+    }
+    public void setAangebodenPlaatsen(int aangebodenPlaatsen) {
+        this.aangebodenPlaatsen = aangebodenPlaatsen;
+    }
 }

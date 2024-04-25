@@ -6,7 +6,7 @@ public class AZC implements SQL{
     private String straat;
     private int nummer;
     private String postcode;
-    Gemeente gemeente;
+    private Gemeente gemeente;
     private ArrayList<Vluchteling> vluchtelingen;
 
     public AZC(String straat, int nummer, String postcode){
@@ -14,7 +14,7 @@ public class AZC implements SQL{
         this.straat = straat;
         this.nummer = nummer;
         this.postcode = postcode;
-
+        this.vluchtelingen = new ArrayList<>();
     }
 
     public String adres(){
