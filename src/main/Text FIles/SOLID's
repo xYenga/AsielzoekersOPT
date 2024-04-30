@@ -1,0 +1,25 @@
+Hier beschrijf ik een paar SOLID'S voor toekomstige referentie.
+
+Single Responsibility Principle:
+
+IRapport is een SRP. bla bla bla bla
+
+De Single Responsibility Principle heb ik via de Interface IRapport geimplementeerd. De Single Responsibiliry gaat over dat een klasse alleen maar 1 taak heeft.
+In IRapport wordt er alleen maar een rapportage genereerd. Hier door hoeft de klasse Beheerder daar niet op te focussen, dus ze worden van elkaar gescheiden gehouden.
+Rapporten kunnen hierdoor ook makkelijker aangepassen worden, doordat ze alleen in de IRapport interface moeten worden aangepast.
+
+
+Open/Closed Principle:
+
+IManage is een OCP. bla bla bla bla 
+
+Liskov Substitution Principle (LSP):
+
+LSP wordt toegepast op de gebruiker klasse. Het wordt gebruikt om het inloggen en het verloop van het veranderen van schermen makkelijker te maken.
+De belangrijkste punt met LSP is om het makkelijker te maken om stukjes codes te kunnen wijzigen zonder invloed te hebben op andere stukjes codes.
+In dit geval geval willen we met de 3 verschillende gebruikers (Beheerder, Coa-medewerker en Vluchteling) kunnen inloggen op de software. Ook willen
+we dat iedere type gebruiker een eigen dashboard krijgt te zien met informatie relevant voor hen.
+
+Interface Segregation Principle:
+
+Dependency Inversion Principle:
