@@ -1,13 +1,13 @@
 package com.example.asielzoekersopt;
 
-public class Vluchteling {
+public class Vluchteling extends Gebruiker{
     private String name;
-    private Country birthCountry;
+    private Land geboorteLand;
     private boolean showedPassport;
 
-    public Vluchteling(String name, Country birthCountry, boolean showedPassport) {
+    public Vluchteling(String name, Land geboorteLand, boolean showedPassport) {
         this.name = name;
-        this.birthCountry = birthCountry;
+        this.geboorteLand = geboorteLand;
         this.showedPassport = showedPassport;
     }
 
@@ -21,12 +21,12 @@ public class Vluchteling {
         this.name = name;
     }
 
-    public Country getBirthCountry() {
-        return birthCountry;
+    public Land getBirthCountry() {
+        return geboorteLand;
     }
 
-    public void setBirthCountry(Country birthCountry) {
-        this.birthCountry = birthCountry;
+    public void setBirthCountry(Land geboorteLand) {
+        this.geboorteLand = geboorteLand;
     }
 
     public boolean isShowedPassport() {

@@ -2,26 +2,16 @@ package com.example.asielzoekersopt;
 
 import java.util.ArrayList;
 
-public class AZC implements SQL{
-    private String straat;
-    private int nummer;
-    private String postcode;
+public class AZC implements IManage{
+    private Adres adres;
     private Gemeente gemeente;
     private ArrayList<Vluchteling> vluchtelingen;
 
-    public AZC(String straat, int nummer, String postcode){
-
-        this.straat = straat;
-        this.nummer = nummer;
-        this.postcode = postcode;
+    public AZC(Adres adres, Gemeente gemeente, String postcode){
+        this.adres = adres;
+        this.gemeente = gemeente;
         this.vluchtelingen = new ArrayList<>();
     }
-
-    public String adres(){
-        return straat + nummer + postcode + gemeente.getName();
-    }
-
-    public void total(){}
 
 
     @Override

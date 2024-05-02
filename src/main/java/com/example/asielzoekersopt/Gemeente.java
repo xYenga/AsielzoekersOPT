@@ -2,7 +2,7 @@ package com.example.asielzoekersopt;
 
 import java.util.ArrayList;
 
-public class Gemeente {
+public class Gemeente implements IManage {
     private String name;
     private int aantalInwoners;
     private int aangebodenPlaatsen;
@@ -33,5 +33,20 @@ public class Gemeente {
     }
     public void setAangebodenPlaatsen(int aangebodenPlaatsen) {
         this.aangebodenPlaatsen = aangebodenPlaatsen;
+    }
+
+    @Override
+    public void add() {
+
+    }
+
+    @Override
+    public void delete() {
+
+    }
+
+    @Override
+    public void modify() {
+
     }
 }

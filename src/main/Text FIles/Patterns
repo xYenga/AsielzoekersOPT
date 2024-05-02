@@ -1,4 +1,13 @@
 
-Method template:
-Observer Template:
-Abstract Template:
+Template Method Pattern:
+
+De Template Method Pattern wordt toegepast door de klassen rondom Gebruikers. Elke type gebruiker krijgt een eigen dashboard te zien. Dus de manier van inloggen is
+
+
+Observer Template Pattern:
+
+
+De Observer Template Pattern wordt (dossier of alleen status)
+
+
+Abstract Template Pattern:
