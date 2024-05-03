@@ -1,17 +1,19 @@
 package com.example.asielzoekersopt;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Gemeente implements IManage {
+public class Gemeente{
     private String name;
     private int aantalInwoners;
     private int aangebodenPlaatsen;
-    private ArrayList<Gemeente> uitkeringen;
+    private List<AZC> azcs;
 
-    public Gemeente(String name,int aantalInwoners, ArrayList<Gemeente> uitkeringen) {
+    public Gemeente(String name,int aantalInwoners, int aangebodenPlaatsen) {
         this.name = name;
         this.aantalInwoners = aantalInwoners;
-        this.uitkeringen = uitkeringen;
+        this.aangebodenPlaatsen = aangebodenPlaatsen;
+        this.azcs = new ArrayList<>();
     }
 
     public String getName() {
@@ -34,19 +36,7 @@ public class Gemeente implements IManage {
     public void setAangebodenPlaatsen(int aangebodenPlaatsen) {
         this.aangebodenPlaatsen = aangebodenPlaatsen;
     }
-
-    @Override
-    public void add() {
-
-    }
-
-    @Override
-    public void delete() {
-
-    }
-
-    @Override
-    public void modify() {
-
+    public List<AZC> getAzcs(){
+        return azcs;
     }
 }
