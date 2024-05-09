@@ -1,32 +1,27 @@
 Hier beschrijf ik een paar SOLID'S voor toekomstige referentie.
 
-Single Responsibility Principle (SRP):
+-   Single Responsibility Principle (SRP):
+Het Single Responsibility Principle wordt toegepast via de Interface IRapport. In IRapport wordt er alleen maar een concept gemaakt voor het genereren van een rapportage.
+Hierdoor hoeft de klasse Beheerder daar niet op te focussen, door de rapport Functionaliteiten gescheiden te houden. De Rapporten kunnen hierdoor ook makkelijker
+aangepassen en uitgebereid worden in de klassen waar ze worden geimplementeerd.
 
-IRapport is een SRP. bla bla bla bla
-
-De Single Responsibility Principle wordt via de Interface IRapport geimplementeerd. De Single Responsibility Principle gaat over dat een klasse alleen maar 1 taak heeft.
-In IRapport wordt er alleen maar een rapportage genereerd om in gekeken te worden. Hierdoor hoeft de klasse Beheerder daar niet op te focussen, dus ze worden van elkaar gescheiden gehouden.
-Rapporten kunnen hierdoor ook makkelijker aangepassen worden, doordat ze alleen in de IRapport interface moeten worden aangepast.
-
-
-Open/Closed Principle (OCP):
-
-IManage is de klasse waarop de Open/Closed Principle gebruikt wordt. De Interface regelt voor verschillende klassen het toevoegen, verwijderen
-en wijzigen van data. Dat is ook waar de interface alleen voor bedoeld is. Wijzigingen in de interface
+-   Open/Closed Principle (OCP):
+Gebruiker klasse is een voorbeeld van een Open/CLosed Principle. Open voor uitbeiding, maar gesloten voor wijzigingen. Doordat Gebruiker child-klasse alles kan
+laten overerven, kunnen er uitbreidingen plaatsvinden (Bijvoorbeeld als er een nieuwe type gebruiker komt en deze te laten erven van de klasse Gebruiker).
+Niks hoeft gewijzigd te worden in Gebruiker, waardoor de klasse gesloten staat voor wijzigingen.
 
 
-
-Liskov Substitution Principle (LSP):
-
-Pas dit aan en verdiep meer op liskov:
-
-LSP wordt toegepast op de gebruiker klasse. Het wordt gebruikt om het inloggen en het verloop van het veranderen van schermen makkelijker te maken.
-De belangrijkste punt met LSP is om het makkelijker te maken om stukjes codes te kunnen wijzigen zonder invloed te hebben op andere stukjes codes.
-In dit geval geval willen we met de 3 verschillende gebruikers (Beheerder, COA-medewerker en Vluchteling) kunnen inloggen op de software. Ook willen
-we dat iedere type gebruiker een eigen dashboard krijgt te zien met informatie relevant voor hen.
+-   Liskov Substitution Principle (LSP):
+LSP wordt toegepast op de gebruiker klasse. Hoe het hier gebruikt wordt doordat COAMedewerker, Beheerder, AZCMedewerker en Vluchteling child-klasses zijn van Gebruiker,
+kunnen deze klasse als vervangende klassen voor Gebruiker gebruikt worden. Wanneer deze klassen gebruikt worden, verandert er niets aan het gedrag van het programma.
+Met deze toepassing kunnen we er ook voor zorgen dat de programma verschillende inlog logica heeft voor iedere gebruikerstype,
+waardoor iedere gebruiker een eigen dashboard kan krijgen dat relevant voor hen is, terwijl het richtlijnen volgt van de klasse Gebruiker.
 
 
-Interface Segregation Principle (ISP):
+-   Interface Segregation Principle (ISP):
+Doordat er met verschillende dashboards gewerkt gaat worden, kunnen we hiervoor de Interface Segregation Principle toepassen. Voor elke gebruikertype wordt er een
+dashboard gemaakt waarop informatie staat dat relevant voor hen is. Omdat het in de form van een interface is, kunnen we elke klasse methods meegegeven die relevant
+voor hen is. Dit zorgt ervoor dat interfaces niet geimplementeerd worden in klasse waar ze niet nodig zijn.
 
 
-Dependency Inversion Principle (DIP):
+Dependency Inversion Principle (DIP): X
