@@ -1,10 +1,12 @@
 package com.example.asielzoekersopt;
 
-public class Gebruiker {
+public abstract class Gebruiker {
     private String gebruikersnaam;
     private String wachtwoord;
 
 
     //methods
-    public
+    public abstract String Inloggen(String gebruikersnaam, String wachtwoord){
+        if(gebruikersnaam && wachtwoord){}
+    }
 }
