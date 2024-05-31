@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Gezin {
-    private List<Gezin> leden;
+    private Vluchteling gezinshoofd;
 
-    public Gezin() {
-        this.leden = new ArrayList<>();
+    public Gezin(Vluchteling gezinshoofd) {
+        this.gezinshoofd = gezinshoofd;
     }
-
-    public void voegFamilieLid(Gezin gezin){
-        this.leden.add(gezin);
-    }
+    
     public List<Gezin> getLeden() {
         return leden;
     }

@@ -1,15 +1,18 @@
 
 Template Method Pattern:
 
-De Template Method Pattern wordt toegepast door de klassen rondom Gebruikers. Elke type gebruiker krijgt een eigen dashboard te zien. In Gebruiker wordt de structuur van de inlog-methode
-gemaakt. In de klasse dat Gebruiker implementeren, wordt deze inlog-methode verder volledig uitgewerkt die past bij de logica dat er wordt vereist van de methode. Dit zorgt ervoor
-dat code steeds niet herhaal wordt, doordat het al in de klasse Gebruiker staat, en ook de code meer overzichtelijker maakt.
+De Template Method Pattern wordt toegepast door de klassen rondom Kamer. Elke type kamer krijgt een eigen toewijzingRegels() toegewenst. In Kamer wordt de structuur van de methode
+gemaakt. In de klasse dat Kamer implementeren, wordt deze methode verder volledig uitgewerkt die past bij de logica dat er wordt vereist van de methode. Dit zorgt ervoor
+dat code steeds niet herhaal wordt, doordat het algemene skelet in de klasse Kamer staat, en ook de code meer overzichtelijker maakt.
 
 Observer Pattern:
 
-De Observer Pattern wordt toegepast door de klassen Dossier, Vluchteling, COAMedewerker en AZCMedewerker. De klasse Dossier wordt als subject gebruikt om de observers aan te
-maken en ze ook weer te verwijderen. Ook wordt de klasse gebruikt door middel van de methode notifyObservers(), om de observers te notificeren wanneer er aanpassingen in een dossier gebeurd. De notification wordt naar de klassen Vluchteling,
-COAMedewerker en AZCMedewerker verstuurd, zodat zij ook op de hoogte zijn van alle aanpassingen.
+De Observer Pattern wordt toegepast door de klassen Vluchteling(subject) en AZC(observer). De klasse Vluctheling wordt als subject gebruikt om de observers aan te
+maken en ze ook weer te verwijderen. Ook wordt de klasse gebruikt door middel van de methode notifyObservers(), de observers te notificeren wanneer er aanpassingen in een dossier gebeurd. De notification
+wordt naar de AZC's' verstuurd, zodat zij ook op de hoogte zijn van alle aanpassingen rondom de vluchtelingen.
 
 
 Abstract Template Pattern: X
+
+
+

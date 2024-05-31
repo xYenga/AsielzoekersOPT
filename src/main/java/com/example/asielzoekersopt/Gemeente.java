@@ -16,6 +16,11 @@ public class Gemeente{
         this.azcs = new ArrayList<>();
     }
 
+    public void addAZC(AZC azc){
+        azcs.add(azc);
+    }
+
+    //getters & setters
     public String getName() {
         return name;
     }
