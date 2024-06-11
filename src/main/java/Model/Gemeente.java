@@ -1,16 +1,16 @@
-package com.example.asielzoekersopt;
+package Model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Gemeente{
-    private String name;
+    private String naam;
     private int aantalInwoners;
     private int aangebodenPlaatsen;
     private List<AZC> azcs;
 
     public Gemeente(String name,int aantalInwoners, int aangebodenPlaatsen) {
-        this.name = name;
+        this.naam = name;
         this.aantalInwoners = aantalInwoners;
         this.aangebodenPlaatsen = aangebodenPlaatsen;
         this.azcs = new ArrayList<>();
@@ -21,11 +21,11 @@ public class Gemeente{
     }
 
     //getters & setters
-    public String getName() {
-        return name;
+    public String getNaam() {
+        return naam;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setNaam(String name) {
+        this.naam = name;
     }
 
     public int getAantalInwoners() {

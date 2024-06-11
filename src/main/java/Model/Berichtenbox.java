@@ -1,4 +1,4 @@
-package com.example.asielzoekersopt;
+package Model;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public class Berichtenbox {
     }
 
     //methods
-    public
+
 
 
     //getters & setters

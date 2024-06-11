@@ -1,6 +1,7 @@
 package Security;
 
 public class LoginC {
+
     public void inlogMethode(String gebruikersnaam, String wachtwoord){
         Security.loadGebruikers();
 

@@ -1,4 +1,4 @@
-package com.example.asielzoekersopt;
+package Model;
 
 public class Dossier {
     boolean asielAanvraagCompleet;
@@ -20,6 +20,20 @@ public class Dossier {
         }
     }
 
+    public void plaatsingWoning(String uitspraakIND){
+        if(this.uitspraakIND.equals("Vergunning")){
+            this.plaatsWoning = "Gestart";
+        } else {
+            System.out.println();
+        }
+    }
+
+    public void nieuwDossier(){
+        this.asielAanvraagCompleet = false;
+        this.uitspraakIND = "geen";
+        this.plaatsWoning = "nee";
+        this.teruggekeerd = false;
+    }
 
     //getters & setters
     public String getPlaatsWoning() {

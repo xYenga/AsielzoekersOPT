@@ -1,6 +1,6 @@
-package com.example.asielzoekersopt;
+package Model;
 
-public class Vluchteling extends Gebruiker{
+public class Vluchteling{
     private String naam;
     private int leeftijd;
     private String gender;
@@ -14,24 +14,16 @@ public class Vluchteling extends Gebruiker{
         this.leeftijd = leeftijd;
         this.gender = gender;
         this.geboorteLand = geboorteLand;
-        this.dossier = new Dossier();
+        this.dossier = dossier;
         this.gezin = gezin;
         this.adres = new Adres("Ter Apelervenen", 10, "9561 MC",new Gemeente("Westerwolde", 0, 0));
     }
 
     public void statusDossier() {
-        if(dossier.isAsielAanvraagCompleet()) {
-            System.out.println("Asielaanvraag is isafgerond?: ja");
-        } else {
-            System.out.println("Is asielaanvraag van de vluchteling afgerond?: nee");
-        }
-        System.out.println("Is" + dossier.getUitspraakIND());
-        System.out.println("Wordt vluchteling in een eigen woning geplaatst?: " + dossier.getPlaatsWoning());
-        if (dossier.isTeruggekeerd()) {
-            System.out.println("Is vluchteling teruggekeerd naar land van herkomst?: Ja");
-        } else {
-            System.out.println("Is vluchteling teruggekeerd naar land van herkomst?: Nee");
-        }
+        System.out.println("Asielaanvraag is afgerond: " + (dossier.isAsielAanvraagCompleet() ? "Ja" : "Nee"));
+        System.out.println("Uitspraak IND: " + dossier.getUitspraakIND());
+        System.out.println("Plaatsing in eigen woning: " + dossier.getPlaatsWoning());
+        System.out.println("Teruggekeerd naar het land van herkomst: " + (dossier.isTeruggekeerd() ? "Ja" : "Nee"));
     }
 
 //    public void registerAdres(Adres nieuwAdres){

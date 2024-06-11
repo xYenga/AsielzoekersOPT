@@ -1,6 +1,6 @@
-package com.example.asielzoekersopt;
+package Model;
 
-public class Land implements IManage{
+public class Land{
     private String name;
     private boolean veilig;
 
@@ -30,18 +30,4 @@ public class Land implements IManage{
         return veilig;
     }
 
-    @Override
-    public void add() {
-
-    }
-
-    @Override
-    public void delete() {
-
-    }
-
-    @Override
-    public void modify() {
-
-    }
 }

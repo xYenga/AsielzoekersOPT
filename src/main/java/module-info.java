@@ -6,4 +6,6 @@ module com.example.asielzoekersopt {
 
     opens com.example.asielzoekersopt to javafx.fxml;
     exports com.example.asielzoekersopt;
+    exports Model;
+    opens Model to javafx.fxml;
 }

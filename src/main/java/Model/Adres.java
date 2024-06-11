@@ -1,4 +1,4 @@
-package com.example.asielzoekersopt;
+package Model;
 
 public class Adres {
     private String straat;

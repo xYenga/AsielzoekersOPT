@@ -1,8 +1,10 @@
-package com.example.asielzoekersopt;
+package Model;
+
+import com.example.asielzoekersopt.Observer;
 
 import java.util.ArrayList;
 
-public class AZC implements Observer{
+public class AZC implements Observer {
     private String naam;
     private Adres adres;
     private ArrayList<Kamer> kamers;
