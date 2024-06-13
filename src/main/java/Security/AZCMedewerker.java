@@ -1,15 +1,15 @@
 package Security;
 
-import java.util.List;
+import Menu.Menu;
 
 public class AZCMedewerker extends Gebruiker{
 
-    public AZCMedewerker(String gebruikersnaam, String wachtwoord, List<String> rechten) {
-        super(gebruikersnaam, wachtwoord, "AZCMedewerker", rechten);
+    public AZCMedewerker(String gebruikersnaam, String wachtwoord) {
+        super(gebruikersnaam, wachtwoord, "AZCMedewerker");
     }
 
-    //    @Override
-    public void inloggen() {
-
+    @Override
+    public Menu inloggen() {
+        return DataSeeder.getInstance().getAZCMedewerkerMenu();
     }
 }

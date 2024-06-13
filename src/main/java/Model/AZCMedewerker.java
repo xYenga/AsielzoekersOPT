@@ -1,19 +1,5 @@
 package Model;
 
-public class AZCMedewerker extends Gebruiker{
+public class AZCMedewerker{
 
-    @Override
-    public void toonMenu() {
-
-    }
-
-    @Override
-    public void voerActieUit() {
-
-    }
-
-    @Override
-    public void voerActieUit(int keuze) {
-
-    }
 }

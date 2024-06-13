@@ -1,18 +1,19 @@
 package Security;
 
+import Menu.Menu;
 import java.util.List;
 
-public class Gebruiker {
+public abstract class Gebruiker {
     private String gebruikersnaam;
     private String wachtwoord;
     private String rol;
-    private List<String> rechten;
 
-    public Gebruiker(String gebruikersnaam, String wachtwoord, String rol, List<String> rechten) {
+    public Gebruiker(){}
+
+    public Gebruiker(String gebruikersnaam, String wachtwoord, String rol) {
         this.gebruikersnaam = gebruikersnaam;
         this.wachtwoord = wachtwoord;
         this.rol = rol;
-        this.rechten = rechten;
     }
 
     public String getGebruikersnaam() {
@@ -27,11 +28,17 @@ public class Gebruiker {
         return wachtwoord;
     }
 
-    public List<String> getRechten() {
-        return rechten;
+    public void setGebruikersnaam(String gebruikersnaam) {
+        this.gebruikersnaam = gebruikersnaam;
     }
 
-    public void inloggen() {
-        System.out.println("Menu voor de " + rol + ".");
+    public void setWachtwoord(String wachtwoord) {
+        this.wachtwoord = wachtwoord;
     }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public abstract Menu inloggen();
 }

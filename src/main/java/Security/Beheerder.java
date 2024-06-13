@@ -1,15 +1,16 @@
 package Security;
 
-import java.util.List;
+import Menu.Menu;
+
 
 public class Beheerder extends Gebruiker {
 
-    public Beheerder(String gebruikersnaam, String wachtwoord, List<String> rechten) {
-        super(gebruikersnaam, wachtwoord, "Beheerder", rechten);
+    public Beheerder(String gebruikersnaam, String wachtwoord) {
+        super(gebruikersnaam, wachtwoord, "Beheerder");
     }
 
     @Override
-    public void inloggen() {
-
+    public Menu inloggen() {
+        return DataSeeder.getInstance().getBeheerderMenu();
     }
 }

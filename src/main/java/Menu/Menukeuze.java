@@ -1,6 +1,6 @@
 package Menu;
 
-public abstract class Menukeuze implements IActie{
+public class Menukeuze implements IActie{
     private int keuze;
     private String titel;
     boolean extraLegeRegel;

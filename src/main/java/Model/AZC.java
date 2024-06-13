@@ -68,4 +68,12 @@ public class AZC implements Observer {
     public ArrayList<Bericht> getBerichtenbox() {
         return berichtenbox;
     }
+
+    public int getAantalVluchtelingen() {
+        int aantalVluchtelingen = 0;
+        for (Kamer kamer : kamers) {
+            aantalVluchtelingen += kamer.getAantalVluchtelingenGevestigd();
+        }
+        return aantalVluchtelingen;
+    }
 }

@@ -1,9 +1,20 @@
 package com.example.asielzoekersopt;
 
-import java.util.Scanner;
+import Menu.Menu;
+import Model.Gemeente;
+import Security.DataSeeder;
 
 public class Main {
     public static void main(String[]args){
+        DataSeeder seeder = DataSeeder.getInstance();
+
+        while (true){
+            Menu menu = seeder.getMenu();
+            menu.toonMenu();
+        }
+
+
+
 //        Scanner scan = new Scanner(System.in);
 //        System.out.println("Welkom bij de AZC!");
 //        System.out.println("U kunt hieronder inloggen om te beginnen.");
@@ -41,8 +52,14 @@ public class Main {
 //        System.out.println("\nNa het bijwerken van het dossier:");
 //        vluchteling.statusDossier();
 
-        DataSeederLandAndGemeente LGseeder = new DataSeederLandAndGemeente();
-        LGseeder.Gemeente();
+//        DataSeederLandAndGemeente LGseeder = new DataSeederLandAndGemeente();
+//        LGseeder.Gemeente();
+
+//        DataSeeder seeder = new DataSeeder();
+//        seeder.initialize();
+//
+//        Gemeente g = new Gemeente();
+//
 
     }
 }

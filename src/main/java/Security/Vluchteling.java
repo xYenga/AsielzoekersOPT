@@ -1,15 +1,20 @@
 package Security;
 
-import java.util.List;
+import Menu.Menu;
+import Model.Dossier;
+import Model.IVluchteling;
 
-public class Vluchteling extends Gebruiker {
+public class Vluchteling extends Gebruiker implements IVluchteling {
 
-    private String rol = "Vluchteling";
-    public Vluchteling(String gebruikersnaam, String wachtwoord, String rol, List<String> rechten) {
-        super(gebruikersnaam, wachtwoord, rol, rechten);
+    public Vluchteling(String gebruikersnaam, String wachtwoord) {
+        super(gebruikersnaam, wachtwoord, "Vluchteling");
     }
-//    @Override
-    public void inloggen() {
-        System.out.println("Menu voor de " + rol + ".");
+
+    @Override
+    public Menu inloggen() {
+        return DataSeeder.getInstance().getVluchtelingMenu();
     }
+
+    @Override
+    public void statusDossier() {}
 }

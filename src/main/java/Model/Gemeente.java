@@ -44,4 +44,12 @@ public class Gemeente{
     public List<AZC> getAzcs(){
         return azcs;
     }
+
+    public int getAantalVluchtelingen() {
+        int aantalVluchtelingen = 0;
+        for (AZC azc : azcs) {
+            aantalVluchtelingen += azc.getAantalVluchtelingen();
+        }
+        return aantalVluchtelingen;
+    }
 }

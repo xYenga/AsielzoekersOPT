@@ -3,15 +3,17 @@ package Model;
 public class Kamer {
     private int capaciteit;
     private String gender;
-    private String veiligVoor;
+    private String veiligVoorLanders;
     private String type;
+    private int aantalVluchtelingenGevestigd;
 
 
-    public Kamer(int capaciteit, String gender, String veiligVoor, String type) {
+    public Kamer(int capaciteit, String gender, String veiligVoorLanders, String type) {
         this.capaciteit = capaciteit;
         this.gender = gender;
-        this.veiligVoor = veiligVoor;
+        this.veiligVoorLanders = veiligVoorLanders;
         this.type = type;
+        this.aantalVluchtelingenGevestigd = 0;
     }
 
     public int getCapaciteit() {
@@ -30,12 +32,12 @@ public class Kamer {
         this.gender = gender;
     }
 
-    public String getVeiligVoor() {
-        return veiligVoor;
+    public String getVeiligVoorLanders() {
+        return veiligVoorLanders;
     }
 
-    public void setVeiligVoor(String veiligVoor) {
-        this.veiligVoor = veiligVoor;
+    public void setVeiligVoorLanders(String veiligVoor) {
+        this.veiligVoorLanders = veiligVoor;
     }
 
     public String getType() {
@@ -45,4 +47,18 @@ public class Kamer {
     public void setType(String type) {
         this.type = type;
     }
+
+    public int getAantalVluchtelingenGevestigd() {return aantalVluchtelingenGevestigd;}
+
+    public void verhoogAantalVluchtelingen() {
+        if (aantalVluchtelingenGevestigd < capaciteit) {
+            aantalVluchtelingenGevestigd++;
+        }
+    }
+    public void verlaagAantalVluchtelingen() {
+        if (aantalVluchtelingenGevestigd > 0) {
+            aantalVluchtelingenGevestigd--;
+        }
+    }
+
 }

@@ -1,6 +1,6 @@
 package Menu;
 
-public class ActieRegistreerNieuweAdres implements IActie{
+public class ActieToonLijstMetVluchtelingen implements IActie{
     @Override
     public void voerActieUit() {
 

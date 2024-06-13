@@ -1,14 +1,16 @@
 package Security;
 
-import java.util.List;
+import Menu.Menu;
+
 
 public class COAMedewerker extends Gebruiker {
-    public COAMedewerker(String gebruikersnaam, String wachtwoord, String rol, List<String> rechten) {
-        super(gebruikersnaam, wachtwoord, rol, rechten);
+
+    public COAMedewerker(String gebruikersnaam, String wachtwoord) {
+        super(gebruikersnaam, wachtwoord, "COAMedewerker");
     }
 
     @Override
-    public void inloggen() {
-
+    public Menu inloggen() {
+        return DataSeeder.getInstance().getCOAMedewerkerMenu();
     }
 }

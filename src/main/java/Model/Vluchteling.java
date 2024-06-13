@@ -1,7 +1,11 @@
 package Model;
 
-public class Vluchteling{
-    private String naam;
+import Menu.Menu;
+import Security.Gebruiker;
+
+public class Vluchteling extends Gebruiker implements IVluchteling{
+    private String voorNaam;
+    private String achterNaam;
     private int leeftijd;
     private String gender;
     private Land geboorteLand;
@@ -9,16 +13,20 @@ public class Vluchteling{
     private Gezin gezin;
     private Adres adres;
 
-    public Vluchteling(String naam, String gender, Land geboorteLand, int leeftijd, Dossier dossier, Gezin gezin, Adres adres) {
-        this.naam = naam;
+    public Vluchteling(String voorNaam,String achterNaam, String gender, Land geboorteLand, int leeftijd, Dossier dossier,String gebruikersnaam, String wachtwoord) {
+        super(gebruikersnaam, wachtwoord, "Vluchteling");
+        this.voorNaam = voorNaam;
+        this.achterNaam = achterNaam;
         this.leeftijd = leeftijd;
         this.gender = gender;
         this.geboorteLand = geboorteLand;
         this.dossier = dossier;
-        this.gezin = gezin;
         this.adres = new Adres("Ter Apelervenen", 10, "9561 MC",new Gemeente("Westerwolde", 0, 0));
     }
 
+    public Vluchteling(){}
+
+    @Override
     public void statusDossier() {
         System.out.println("Asielaanvraag is afgerond: " + (dossier.isAsielAanvraagCompleet() ? "Ja" : "Nee"));
         System.out.println("Uitspraak IND: " + dossier.getUitspraakIND());
@@ -39,12 +47,16 @@ public class Vluchteling{
     }
 
     //getters and setters
-    public String getNaam() {
-        return naam;
+
+
+    public Dossier getDossier() {return dossier;}
+
+    public String getVoorNaam() {
+        return voorNaam;
     }
 
-    public void setNaam(String naam) {
-        this.naam = naam;
+    public String getAchterNaam() {
+        return achterNaam;
     }
 
     public Land getBirthCountry() {
@@ -62,4 +74,32 @@ public class Vluchteling{
 //    public void setShowedPassport(boolean showedPassport) {
 //        this.showedPassport = showedPassport;
 //    }
+
+    public void setGezin(Gezin gezin) {
+        this.gezin = gezin;
+    }
+    public Gezin getGezin() {
+        return gezin;
+    }
+
+    public int getLeeftijd() {
+        return leeftijd;
+    }
+
+    public Adres getAdres() {
+        return adres;
+    }
+
+    public Land getGeboorteLand() {
+        return geboorteLand;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    @Override
+    public Menu inloggen() {
+        return null;
+    }
 }

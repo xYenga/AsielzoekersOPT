@@ -8,4 +8,6 @@ module com.example.asielzoekersopt {
     exports com.example.asielzoekersopt;
     exports Model;
     opens Model to javafx.fxml;
+    exports Security;
+    opens Security to javafx.fxml;
 }
