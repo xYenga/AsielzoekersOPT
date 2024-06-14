@@ -16,6 +16,10 @@ public class Gemeente{
         this.azcs = new ArrayList<>();
     }
 
+    public Gemeente(String naam) {
+        this.naam = naam;
+    }
+
     public void addAZC(AZC azc){
         azcs.add(azc);
     }
@@ -40,9 +44,6 @@ public class Gemeente{
     }
     public void setAangebodenPlaatsen(int aangebodenPlaatsen) {
         this.aangebodenPlaatsen = aangebodenPlaatsen;
-    }
-    public List<AZC> getAzcs(){
-        return azcs;
     }
 
     public int getAantalVluchtelingen() {

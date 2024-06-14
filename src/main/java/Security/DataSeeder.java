@@ -3,12 +3,9 @@ package Security;
 import Menu.*;
 import Model.*;
 
-
-import java.lang.reflect.Array;
-import java.security.Security;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Objects;
 
 public class DataSeeder {
     private static DataSeeder instance = null;
@@ -17,9 +14,11 @@ public class DataSeeder {
     private ArrayList<AZC> azcs;
     private ArrayList<Land> veiligeLanden;
     private ArrayList<Menu> menus;
-    int n = 1;
-    int m = 1;
+    private ArrayList<Kamer> kamers;
 
+//    private ArrayList<Observer> observers;
+
+    private boolean initialized = false;
 
     public void landenDieVeiligZijn(){
         String[] alleLandenLijst = {"Afghanistan", "Albanië", "Algerije", "Andorra", "Angola", "Antigua en Barbuda", "Argentinië", "Armenië", "Australië",
@@ -42,33 +41,23 @@ public class DataSeeder {
                 "Vaticaanstad", "Venezuela", "Verenigde Arabische Emiraten", "Verenigde Staten", "Verenigd Koninkrijk",
                 "Vietnam", "Wit-Rusland", "Zambia", "Zimbabwe", "Zuid-Afrika", "Zuid-Korea", "Zuid-Soedan", "Zweden", "Zwitserland"
         };
-//        String[] veiligeLandenLijst = {
-//                "Albanië", "Armenië", "België", "Bosnië-Herzegovina", "Brazilië", "Bulgarije", "Cyprus",
-//                "Denemarken", "Duitsland", "Estland", "Finland", "Frankrijk", "Georgië", "Ghana",
-//                "Griekenland", "Hongarije", "Ierland", "India", "Italië", "Jamaica", "Kosovo",
-//                "Kroatië", "Letland", "Litouwen", "Luxemburg", "Malta", "Marokko", "Mongolië",
-//                "Montenegro", "Nederland", "Noord-Macedonië", "Oostenrijk", "Polen", "Portugal",
-//                "Roemenië", "Senegal", "Servië", "Slovenië", "Slowakije", "Spanje", "Trinidad en Tobago",
-//                "Tsjechië", "Tunesië", "Verenigde Staten", "Verenigd Koninkrijk", "Zweden"
-//        };
-
         String[] veiligeLandenLijst = {
-                "België", "Bosnië-Herzegovina", "Brazilië", "Bulgarije", "Cyprus",
+                "Albanië", "Armenië", "België", "Bosnië-Herzegovina", "Brazilië", "Bulgarije", "Cyprus",
                 "Denemarken", "Duitsland", "Estland", "Finland", "Frankrijk", "Georgië", "Ghana",
-                "Nederland", "Tsjechië", "Tunesië", "Verenigde Staten", "Verenigd Koninkrijk", "Zweden"
+                "Griekenland", "Hongarije", "Ierland", "India", "Italië", "Jamaica", "Kosovo",
+                "Kroatië", "Letland", "Litouwen", "Luxemburg", "Malta", "Marokko", "Mongolië",
+                "Montenegro", "Nederland", "Noord-Macedonië", "Oostenrijk", "Polen", "Portugal",
+                "Roemenië", "Senegal", "Servië", "Slovenië", "Slowakije", "Spanje", "Trinidad en Tobago",
+                "Tsjechië", "Tunesië", "Verenigde Staten", "Verenigd Koninkrijk", "Zweden"
         };
 
         for (String aLN : alleLandenLijst) {
             if(Arrays.asList(veiligeLandenLijst).contains(aLN)) {
                 Land land = new Land(aLN, true);
                 veiligeLanden.add(land);
-//                System.out.println("Veilige Land V" + n + " - " + land.getName());
-//                n++;
             } else {
                 Land land = new Land(aLN, false);
                 veiligeLanden.add(land);
-//                System.out.println("Onveilige Land OV" + m + " - " + land.getName());
-//                m++;
             }
         }
     }
@@ -79,15 +68,10 @@ public class DataSeeder {
             int aantalInwoners = (int)o[1];
             Gemeente gemeente = new Gemeente(naam,aantalInwoners,0);
             gemeentes.add(gemeente);
-//            System.out.println("Gemeente: " + gemeente.getNaam() + ", Aantal Inwoners: " + gemeente.getAantalInwoners());
         }
     }
 
-    public void initialize(){
-        landenDieVeiligZijn();
-        alleGemeentes();
-
-        //menus
+    public void initializeMenus(){
         Menu nietIngelogd = new Menu("Login Scherm");
         Menukeuze inloggen = new Menukeuze("Login", new ActieLogin());
         Menukeuze exit = new Menukeuze(9, "Exit", true, new ActieExit());
@@ -98,14 +82,14 @@ public class DataSeeder {
         Menu beheerderMenu = new Menu("U bent ingelogd als beheerder");
         Menukeuze toonGemeentes = new Menukeuze("Toon Gemeentes", new ActieToonLijstGemeentes());
         Menukeuze genereerRapport = new Menukeuze("Genereer Rapport van alle Gemeentes", new ActieGenereerRapportage());
-        Menukeuze logout = new Menukeuze("Logout", new ActieLogout());
+        Menukeuze logout = new Menukeuze(8,"Logout", new ActieLogout());
         beheerderMenu.voegMenukeuzeToe(toonGemeentes);
         beheerderMenu.voegMenukeuzeToe(genereerRapport);
         beheerderMenu.voegMenukeuzeToe(logout);
         beheerderMenu.voegMenukeuzeToe(exit);
         menus.add(beheerderMenu);
 
-        Menu azcMedewerkerMenu = new Menu("U bent ingelogd als AZC-Medewerker");
+        Menu azcMedewerkerMenu = new Menu("U bent ingelogd als AZC-Medewerker" /*((AZCMedewerker) LoginC.getInstance().getaGebruiker()).getAzc()*/);
         Menukeuze toonBerichtenBox = new Menukeuze("Toon de berichtenbox", new ActieToonBerichtenbox());
         Menukeuze selecteerBericht = new Menukeuze("Selecteer een bericht", new ActieSelecteerBericht());
         azcMedewerkerMenu.voegMenukeuzeToe(toonBerichtenBox);
@@ -115,10 +99,12 @@ public class DataSeeder {
         menus.add(azcMedewerkerMenu);
 
         Menu coaMedewerkerMenu = new Menu("U bent ingelogd als COA-Medewerker");
+        Menukeuze toonVluchteling = new Menukeuze("Toon lijst met vluchtelingen", new ActieToonVluchtelingen());
         Menukeuze registreerVluchteling = new Menukeuze("Registreer een vluchteling", new ActieRegistreerNieuweVluchteling());
-        Menukeuze plaatsEnVerhuizingVluchteling = new Menukeuze("Plaats of Verhuis een vluchteling", new ActiePlaatsVluchteling());
+        Menukeuze plaatsEnVerhuizingVluchteling = new Menukeuze("Plaats of Verhuis een vluchteling", new ActiePlaatsofVerhuisVluchteling());
         Menukeuze dossierBijWerken = new Menukeuze("Werk het dossier bij van een vluchteling", new ActieWerkDossierBij());
         Menukeuze vertrekNaarLandVanHerkomst = new Menukeuze("Registreer vertrek van vluchteling", new ActieRegistreerVertrekVluchteling());
+        coaMedewerkerMenu.voegMenukeuzeToe(toonVluchteling);
         coaMedewerkerMenu.voegMenukeuzeToe(registreerVluchteling);
         coaMedewerkerMenu.voegMenukeuzeToe(plaatsEnVerhuizingVluchteling);
         coaMedewerkerMenu.voegMenukeuzeToe(dossierBijWerken);
@@ -131,26 +117,149 @@ public class DataSeeder {
         Menukeuze statusDossier = new Menukeuze("Status van dossier opvragen", new ActieStatusDossier());
         Menukeuze registreerNieuweAdres = new Menukeuze("Registreer nieuwe adres", new ActieRegistreerNieuweAdres());
         vluchtelingMenu.voegMenukeuzeToe(statusDossier);
-        vluchtelingMenu.voegMenukeuzeToe(registreerNieuweAdres);
+
+        LoginC lc = LoginC.getInstance();
+        Vluchteling aG = (Vluchteling) lc.getaGebruiker();
+        if(aG != null && aG.isPlaatsingInEigenWoningGestart()) {
+            vluchtelingMenu.voegMenukeuzeToe(registreerNieuweAdres);
+        }
+
         vluchtelingMenu.voegMenukeuzeToe(logout);
         vluchtelingMenu.voegMenukeuzeToe(exit);
         menus.add(vluchtelingMenu);
+    }
 
-        //Gebruikers maken
+    public void initializeGebruikers(){
         gebruikers.add(new Beheerder("admin", "admin123"));
         gebruikers.add(new COAMedewerker("coa_user", "coa123"));
-        gebruikers.add(new AZCMedewerker("azc_user", "azc123"));
-        gebruikers.add(new Vluchteling("vluchteling", "vluchteling123"));
+
+        AZCMedewerker azcMedewerker1 = new AZCMedewerker("Amsterdam_azc_user", "azc123");
+        AZCMedewerker azcMedewerker2 = new AZCMedewerker("Rotterdam_azc_user", "azc123");
+        AZCMedewerker azcMedewerker3 = new AZCMedewerker("Den_Haag_azc_user", "azc123");
+
+        azcMedewerker1.setAzc(getAZCByNaam("Amsterdam AZC1"));
+        azcMedewerker2.setAzc(getAZCByNaam("Rotterdam AZC1"));
+        azcMedewerker3.setAzc(getAZCByNaam("Den Haag AZC1"));
+
+        gebruikers.add(azcMedewerker1);
+        gebruikers.add(azcMedewerker2);
+        gebruikers.add(azcMedewerker3);
 
         Dossier dossier1 = new Dossier();
         gebruikers.add(new Model.Vluchteling("Voornaam1", "Achternaam1", "Mannelijk", new Land("Nederland", true), 25, dossier1 , "gebruikersnaam1", "wachtwoord1"));
-
         Dossier dossier2 = new Dossier();
         gebruikers.add(new Model.Vluchteling("Voornaam2", "Achternaam2", "Vrouwelijk", new Land("Belgie", true), 30, dossier2, "gebruikersnaam2", "wachtwoord2"));
-
         Dossier dossier3 = new Dossier();
         gebruikers.add(new Model.Vluchteling("Voornaam3", "Achternaam3", "Mannelijk", new Land("Duitsland", true) , 35, dossier3, "gebruikersnaam3", "wachtwoord3"));
 
+        registerObservers();
+    }
+
+    public void initializeAZCs(){
+        Gemeente amsterdam = getGemeenteByNaam("Amsterdam");
+        azcs.add(new AZC("Amsterdam AZC1", new Adres("Damstraat", 1, "1012JS", amsterdam)));
+        azcs.add(new AZC("Amsterdam AZC2", new Adres("Kalverstraat", 2, "1012PV", amsterdam)));
+        azcs.add(new AZC("Amsterdam AZC3", new Adres("Leidseplein", 3, "1017PT", amsterdam)));
+
+        Gemeente rotterdam = getGemeenteByNaam("Rotterdam");
+        azcs.add(new AZC("Rotterdam AZC1", new Adres("Coolsingel", 1, "3012AD", rotterdam)));
+        azcs.add(new AZC("Rotterdam AZC2", new Adres("Witte de Withstraat", 2, "3012BT", rotterdam)));
+
+        Gemeente denHaag = getGemeenteByNaam("Den Haag");
+        azcs.add(new AZC("Den Haag AZC1", new Adres("Binnenhof", 1, "2513AA", denHaag)));
+
+        Gemeente utrecht = getGemeenteByNaam("Utrecht");
+        azcs.add(new AZC("Utrecht AZC1", new Adres("Domplein", 1, "3512JC", utrecht)));
+        azcs.add(new AZC("Utrecht AZC2", new Adres("Neude", 2, "3512AD", utrecht)));
+
+        Gemeente eindhoven = getGemeenteByNaam("Eindhoven");
+        azcs.add(new AZC("Eindhoven AZC1", new Adres("Stationsplein", 1, "5611AB", eindhoven)));
+        azcs.add(new AZC("Eindhoven AZC2", new Adres("Stratumseind", 2, "5611EN", eindhoven)));
+        azcs.add(new AZC("Eindhoven AZC3", new Adres("Vestdijk", 3, "5611CA", eindhoven)));
+
+        Gemeente groningen = getGemeenteByNaam("Groningen");
+        azcs.add(new AZC("Groningen AZC1", new Adres("Grote Markt", 1, "9712HM", groningen)));
+        azcs.add(new AZC("Groningen AZC2", new Adres("Vismarkt", 2, "9712CA", groningen)));
+
+        Gemeente tilburg = getGemeenteByNaam("Tilburg");
+        azcs.add(new AZC("Tilburg AZC1", new Adres("Heuvelstraat", 1, "5038AA", tilburg)));
+
+        Gemeente almere = getGemeenteByNaam("Almere");
+        azcs.add(new AZC("Almere AZC1", new Adres("Grote Markt", 1, "1315HM", almere)));
+        azcs.add(new AZC("Almere AZC2", new Adres("Stationsstraat", 2, "1315KJ", almere)));
+
+        Gemeente breda = getGemeenteByNaam("Breda");
+        azcs.add(new AZC("Breda AZC1", new Adres("Grote Markt", 1, "4811XX", breda)));
+
+        Gemeente nijmegen = getGemeenteByNaam("Nijmegen");
+        azcs.add(new AZC("Nijmegen AZC1", new Adres("Grote Markt", 1, "6511KB", nijmegen)));
+        azcs.add(new AZC("Nijmegen AZC2", new Adres("Molenstraat", 2, "6511HA", nijmegen)));
+        azcs.add(new AZC("Nijmegen AZC3", new Adres("Plein 1944", 3, "6511HV", nijmegen)));
+
+        seedKamers(Objects.requireNonNull(getAZCByNaam("Amsterdam AZC1")), Objects.requireNonNull(getAZCByNaam("Rotterdam AZC1")), Objects.requireNonNull(getAZCByNaam("Den Haag AZC1")));
+    }
+
+    public void initialize(){
+        if(initialized) return;
+        initialized = true;
+
+        landenDieVeiligZijn();
+        alleGemeentes();
+        initializeMenus();
+        initializeAZCs();
+        initializeGebruikers();
+
+        registerObservers();
+    }
+
+    public void registerObservers() {
+        ArrayList<Model.Vluchteling> vluchtelingen = getVluchtelingen();
+        for (AZC azc : azcs) {
+            for (Model.Vluchteling vluchteling : vluchtelingen) {
+                vluchteling.registreerObserver(azc);
+            }
+        }
+    }
+
+    public void seedKamers(AZC azc1, AZC azc2, AZC azc3) {
+        Kamer jongerenKamer1 = new JongerenKamer(10, "Man", "ja", "Jongeren");
+        Kamer gewoneKamer1 = new GewoneKamer(2, "Vrouw", "nee", "Gewone");
+        Kamer gewoneKamer1_1 = new GewoneKamer(1, "Vrouw", "ja", "Gewone");
+        Kamer gezinsKamer1 = new GezinsKamer(6, "mixed", "ja", "Gezins");
+
+        kamers.add(jongerenKamer1);
+        kamers.add(gewoneKamer1);
+        kamers.add(gewoneKamer1_1);
+        kamers.add(gezinsKamer1);
+
+        azc1.voegKamer(jongerenKamer1);
+        azc1.voegKamer(gewoneKamer1);
+        azc1.voegKamer(gewoneKamer1_1);
+        azc1.voegKamer(gezinsKamer1);
+
+        Kamer jongerenKamer2 = new JongerenKamer(8, "Man", "ja", "Jongeren");
+        Kamer gewoneKamer2 = new GewoneKamer(4, "Man", "nee", "Gewone");
+        Kamer gezinsKamer2 = new GezinsKamer(5, "mixed", "ja", "Gezins");
+
+        kamers.add(jongerenKamer2);
+        kamers.add(gewoneKamer2);
+        kamers.add(gezinsKamer2);
+
+        azc2.voegKamer(jongerenKamer2);
+        azc2.voegKamer(gewoneKamer2);
+        azc2.voegKamer(gezinsKamer2);
+
+        Kamer jongerenKamer3 = new JongerenKamer(15, "Vrouw", "ja", "Jongeren");
+        Kamer gewoneKamer3 = new GewoneKamer(1, "Man", "nee", "Gewone");
+        Kamer gezinsKamer3 = new GezinsKamer(4, "mixed", "ja", "Gezins");
+
+        kamers.add(jongerenKamer3);
+        kamers.add(gewoneKamer3);
+        kamers.add(gezinsKamer3);
+
+        azc3.voegKamer(jongerenKamer3);
+        azc3.voegKamer(gewoneKamer3);
+        azc3.voegKamer(gezinsKamer3);
     }
 
     DataSeeder(){
@@ -159,11 +268,24 @@ public class DataSeeder {
         this.azcs = new ArrayList<>();
         this.veiligeLanden = new ArrayList<>();
         this.menus = new ArrayList<>();
-        initialize();
+        this.kamers = new ArrayList<>();
+//        this.observers = new ArrayList<>();
     }
+
+    public Gemeente showGemeentes(String gemeente){
+        for (Gemeente g : gemeentes) {
+            if(g.getNaam().equalsIgnoreCase(gemeente)){
+                return g;
+            }
+        }
+        return null;
+    }
+
+
     public static DataSeeder getInstance(){
         if(instance == null){
             instance = new DataSeeder();
+            instance.initialize();
         }
         return instance;
     }
@@ -186,15 +308,45 @@ public class DataSeeder {
         return null;
     }
 
-    public Menu getMenu(){
+    public Menu getMenu() {
         LoginC lc = LoginC.getInstance();
 
-        if(!lc.isIngelogd()){
+        if (!lc.isIngelogd()) {
             return menus.get(0);
-        } else{
+        } else {
             Gebruiker g = lc.getaGebruiker();
-            return g.inloggen();
+            if (g != null) {
+                return g.inloggen();
+            } else {
+                return null;
+            }
         }
+    }
+
+    private static Gemeente getGemeenteByNaam(String naam) {
+        for (Gemeente gemeente : getInstance().getGemeenten()) {
+            if (gemeente.getNaam().equals(naam)) {
+                return gemeente;
+            }
+        }
+        return null;
+    }
+    private static AZC getAZCByNaam(String naam) {
+        for (AZC azc : getInstance().getAZCs()) {
+            if (azc.getNaam().equals(naam)) {
+                return azc;
+            }
+        }
+        return null;
+    }
+
+    public AZC getAZCByName(String naam) {
+        for (AZC azc : azcs) {
+            if (azc.getNaam().equalsIgnoreCase(naam)) {
+                return azc;
+            }
+        }
+        return null;
     }
 
     public ArrayList<Gemeente> getGemeenten() {
@@ -218,22 +370,39 @@ public class DataSeeder {
         return new Land(geboorteLand, false);
     }
 
-    public Gebruiker getVluchtelingen() {
-        for (Gebruiker g : gebruikers){
-            if(g.getRol().equals("Vluchteling")){
-                return g;
+    public ArrayList<Vluchteling> getVluchtelingen() {
+        ArrayList<Vluchteling> vluchtelingen = new ArrayList<>();
+        for (Gebruiker g : gebruikers) {
+            if (g instanceof Vluchteling) {
+                vluchtelingen.add((Vluchteling) g);
+            }
+        }
+        return vluchtelingen;
+    }
+
+    public Vluchteling getVluchteling(String naam) {
+        for (Vluchteling v : getVluchtelingen()) {
+            String vNaam = v.getVoorNaam() + " " + v.getAchterNaam();
+            if (vNaam.equalsIgnoreCase(naam)) {
+                return v;
             }
         }
         return null;
     }
 
-//    private Vluchteling getVluchteling(String naam) {
-//        for (Vluchteling v : getVluchtelingen()) {
-//            if (v.getVoorNaam().equalsIgnoreCase(naam) || v.getAchterNaam().equalsIgnoreCase(naam)) {
-//                return v;
-//            }
-//        }
-//        return null;
-//    }
+    public void showVluchtelingen() {
+        for (Vluchteling v : getVluchtelingen()) {
+            System.out.println(v.getVoorNaam() + " " + v.getAchterNaam());
+        }
+    }
 
+    public ArrayList<AZC> getAZCsInGemeente(Gemeente gemeente) {
+        ArrayList<AZC> azcPerGemeente = new ArrayList<>();
+        for (AZC azc : azcs){
+            if (gemeente.getNaam().equalsIgnoreCase(azc.getAdres().getGemeente().getNaam())){
+                azcPerGemeente.add(azc);
+            }
+        }
+        return azcPerGemeente;
+    }
 }

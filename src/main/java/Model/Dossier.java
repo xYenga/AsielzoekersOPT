@@ -1,5 +1,7 @@
 package Model;
 
+import Security.LoginC;
+
 public class Dossier {
     boolean asielAanvraagCompleet;
     String uitspraakIND;
@@ -20,13 +22,15 @@ public class Dossier {
         }
     }
 
-    public void plaatsingWoning(String uitspraakIND){
-        if(this.uitspraakIND.equals("Vergunning")){
+    public void plaatsingWoning(boolean check){
+        if(check){
             this.plaatsWoning = "Gestart";
-        } else {
-            System.out.println();
+            System.out.println("Plaatsing voor de vluchteling is gestart.");
+        } else{
+            this.plaatsWoning = "Nee";
         }
     }
+
 
     public void nieuwDossier(){
         this.asielAanvraagCompleet = false;
@@ -35,7 +39,6 @@ public class Dossier {
         this.teruggekeerd = false;
     }
 
-    //getters & setters
     public String getPlaatsWoning() {
         return plaatsWoning;
     }
@@ -46,6 +49,10 @@ public class Dossier {
 
     public String getUitspraakIND() {
         return uitspraakIND;
+    }
+
+    public void setUitspraakIND(String uitspraakIND) {
+        this.uitspraakIND = uitspraakIND;
     }
 
     public boolean isAsielAanvraagCompleet() {

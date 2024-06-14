@@ -9,7 +9,12 @@ import java.util.Scanner;
 public class COA {
     DataSeeder seeder = DataSeeder.getInstance();
     private static COA instance = null;
-    private ArrayList<Vluchteling> vluchtelingen = new ArrayList<>();
+    private ArrayList<Vluchteling> vluchtelingen;
+
+    public COA(){
+        vluchtelingen = seeder.getVluchtelingen();
+    }
+
     public void registreerVluchteling(){
         System.out.println("Vul de gegevens van de Vluchteling in: ");
         Scanner scan = new Scanner(System.in);
@@ -46,27 +51,18 @@ public class COA {
 
         System.out.println();
         Vluchteling v =  new Vluchteling(voorNaam, achterNaam, gender, geboorteLand, leeftijd, dossier, gebruikersnaam, wachtwoord);
-
         vluchtelingen.add(v);
-        System.out.println("Is de vluchteling onderdeel van een gezin? (ja/nee)");
 
         gezinOnderdeel(v);
+
+        DataSeeder.getInstance().getGebruikers().add(v);
+        DataSeeder.getInstance().registerObservers();
+
+        System.out.println("Aantal vluchtelingen in DataSeeder: " + seeder.getVluchtelingen().size());
     }
 
-//    public void showList(){
-//        for (Vluchteling v : vluchtelingen){
-//            System.out.println(v.getVoorNaam());
-//            System.out.println(v.getAchterNaam());
-//            System.out.println(v.getAdres());
-//            System.out.println(v.getGender());
-//            System.out.println(v.getLeeftijd());
-//            System.out.println(v.getGeboorteLand());
-//
-//        }
-//    }
     private String generateGebruikersnaam(String voorNaam, String achterNaam) {
-        String gebruikersnaam = ("v_" + voorNaam + "_" + achterNaam).toLowerCase();
-        return gebruikersnaam;
+        return ("v_" + voorNaam + "_" + achterNaam).toLowerCase();
     }
 
     private String generateWachtwoord(String achterNaam) {
@@ -75,9 +71,7 @@ public class COA {
         int randomNummer2 = rand.nextInt(10) + 1;
         int randomNummer3 = rand.nextInt(10) + 1;
         int randomNummer4 = rand.nextInt(10) + 1;
-
-        String wachtwoord = achterNaam + randomNummer1 + randomNummer2 + randomNummer3 + randomNummer4 ;
-        return wachtwoord;
+        return achterNaam + randomNummer1 + randomNummer2 + randomNummer3 + randomNummer4;
     }
 
     public Land setGeboorteLand() {
@@ -110,11 +104,11 @@ public class COA {
         return null;
     }
 
-
     public void gezinOnderdeel(Vluchteling v){
         Scanner scan = new Scanner(System.in);
-        String isGezin = scan.nextLine();
         Gezin gezin = null;
+        System.out.println("Is de vluchteling onderdeel van een gezin? (ja/nee)");
+        String isGezin = scan.nextLine();
         if (isGezin.equalsIgnoreCase("ja")) {
             System.out.println("Is de vluchteling het gezinshoofd? (ja/nee)");
             String isGezinshoofd = scan.nextLine();
@@ -137,8 +131,11 @@ public class COA {
                     System.out.println("Gezinshoofd niet gevonden. De vluchteling wordt geregistreerd zonder gezin.");
                 }
             }
+        } else if (isGezin.equalsIgnoreCase("nee")) {
+            System.out.println("De vluchteling wordt geregistreerd zonder gezin.");
         }
     }
+
     public static COA getInstance() {
         if(instance==null){
             instance = new COA();
@@ -148,15 +145,251 @@ public class COA {
 
     public void aanpassenVanDossier(Dossier dossier, String uitspraak){
         dossier.modifyUitspraak(uitspraak);
-        dossier.plaatsingWoning(uitspraak);
     }
     public void werkDossierBij(){
-        Vluchteling vluchteling = new Vluchteling();
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Geef de voornaam van de vluchteling: ");
+        String vVoornaam = scan.nextLine();
+        System.out.println("Geef de achternaam van de vluchteling: ");
+        String vAchternaam = scan.nextLine();
+        System.out.println();
+        Vluchteling vluchteling = zoekVluchteling(vVoornaam, vAchternaam);
+
+        if (vluchteling == null) {
+            System.out.println("Vluchteling niet gevonden.");
+            return;
+        }
+
         Dossier vDossier = vluchteling.getDossier();
-        String vUitspraak = vDossier.getUitspraakIND();
-        aanpassenVanDossier(vDossier, vUitspraak);
+        if (vDossier == null) {
+            System.out.println("Dossier van de vluchteling is niet gevonden.");
+            return;
+        }
+
+        System.out.println("Wat moet er worden bij gewerkt in het dossier?");
+        System.out.println("1. IND uitspraak");
+        System.out.println("2. Plaasting van vluchteling in eigen woning starten");
+
+        int keuze = scan.nextInt();
+
+        if (keuze == 1){
+            werkUitspraakDossierBij(vDossier);
+        } else if (keuze == 2){
+            werkPlaatsingDossierBij(vDossier);
+        } else{
+            System.out.println("Geef een geldige keuze mee.");
+        }
+    }
+
+    public void werkUitspraakDossierBij(Dossier d){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Geef de nieuwe uitspraak van de IND: ");
+        System.out.println("1. Geen");
+        System.out.println("2. Verblijfsvergunning ");
+        System.out.println("3. Aanvraag afgewezen");
+
+        String vUitspraak = null;
+        int keuze = scan.nextInt();
+        if  (keuze == 1){
+            vUitspraak = "Geen";
+            d.modifyUitspraak(vUitspraak);
+        } else if (keuze == 2){
+            vUitspraak = "Verblijfsvergunning";
+            d.modifyUitspraak(vUitspraak);
+        } else if (keuze == 3){
+            vUitspraak = "Aanvraag afgewezen";
+            d.modifyUitspraak(vUitspraak);
+        }
+        aanpassenVanDossier(d, vUitspraak);
+    }
+    public void werkPlaatsingDossierBij(Dossier d){
+        if(!d.getUitspraakIND().equalsIgnoreCase("Verblijfsvergunning")){
+            System.out.println("Plaatsing kan niet gestart worden, omdat de vluchteling geen verblijfsvergunning heeft gekregen.");
+            return;
+        }
+        d.plaatsingWoning(true);
+    }
+
+    public void plaatsingOfVeruizingVluchteling(){
+        Scanner scan = new Scanner(System.in);
+        System.out.println();
+        System.out.println("Wat is de situatie van de vluchteling?: ");
+        System.out.println("1. Vluchteling wordt geplaatst in AZC");
+        System.out.println("2. Vluchteling verhuist uit AZC");
+        int keuze = scan.nextInt();
+        if (keuze == 1){
+            plaatsingVluchteling();
+        } else if (keuze == 2) {
+            veruizingVluchteling();
+        }
+    }
+
+    public void plaatsingVluchteling(){
+        System.out.println("Vluchteling wordt geplaats");
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Geef de voornaam van de vluchteling: ");
+        String vVoorNaam = scan.nextLine();
+        System.out.println("Geef de achternaam van de vluchteling: ");
+        String vAchterNaam = scan.nextLine();
+
+        Vluchteling v = zoekVluchteling(vVoorNaam, vAchterNaam);
+        if (v == null){
+            System.out.println("Vluchteling niet geregistreerd.");
+            return;
+        }
+
+        Gemeente g = selecteerGemeente();
+        if (g == null){
+            System.out.println("Geen gemeente gevonden.");
+            return;
+        }
+
+        AZC azc = selecteerAZC(g);
+        if (azc == null){
+            System.out.println("Geen AZC gevonden.");
+            return;
+        }
+
+        plaatsVluchtelingInAZC(v, azc);
+        stuurBerichtNaarAZC(azc, v);
     }
 
 
-    public void vertrekNaarLandVanHerkomst(){}
+
+    public void stuurBerichtNaarAZC(AZC azc, Vluchteling vluchteling){
+        Bericht b = new Bericht(azc.getNaam(), vluchteling.getVoorNaam(), true);
+        azc.krijgBericht(b);
+    }
+
+    private Gemeente selecteerGemeente() {
+        Gemeente geselecteerdeGemeente = null;
+        int maxBeschikbarePlaatsen = 0;
+
+        for (Gemeente gemeente : seeder.getGemeenten()) {
+            int beschikbarePlaatsen = gemeente.getAangebodenPlaatsen();
+            if (beschikbarePlaatsen > maxBeschikbarePlaatsen) {
+                maxBeschikbarePlaatsen = beschikbarePlaatsen;
+                geselecteerdeGemeente = gemeente;
+            }
+        }
+
+        if (geselecteerdeGemeente == null) {
+            double minPercentage = Double.MAX_VALUE;
+            for (Gemeente gemeente : seeder.getGemeenten()) {
+                int inwoners = gemeente.getAantalInwoners();
+                int beschikbarePlaatsen = gemeente.getAangebodenPlaatsen();
+                double percentage = (double) beschikbarePlaatsen / inwoners;
+                if (percentage < minPercentage) {
+                    minPercentage = percentage;
+                    geselecteerdeGemeente = gemeente;
+                }
+            }
+        }
+        return geselecteerdeGemeente;
+    }
+    private AZC selecteerAZC(Gemeente gemeente) {
+        ArrayList<AZC> azcs = seeder.getAZCsInGemeente(gemeente);
+        if (azcs.isEmpty()) {
+            return null;
+        }
+
+        System.out.println("Selecteer een AZC in " + gemeente.getNaam() + ":");
+        for (int i = 0; i < azcs.size(); i++) {
+            System.out.println((i + 1) + ". " + azcs.get(i).getNaam());
+        }
+
+        Scanner scan = new Scanner(System.in);
+        int keuze = scan.nextInt();
+        scan.nextLine();
+
+        if (keuze < 1 || keuze > azcs.size()) {
+            System.out.println("Ongeldige keuze.");
+            return null;
+        }
+
+        return azcs.get(keuze - 1);
+    }
+    public Vluchteling zoekVluchteling(String voorNaam, String achterNaam){
+        for (Vluchteling v : vluchtelingen){
+            if (v.getVoorNaam().equalsIgnoreCase(voorNaam) && v.getAchterNaam().equalsIgnoreCase(achterNaam)){
+                return v;
+            }
+        }
+        return null;
+    }
+
+    private void plaatsVluchtelingInAZC(Vluchteling vluchteling, AZC azc) {
+        vluchteling.setAzc(azc);
+        azc.voegVluchtelingToe(vluchteling);
+
+        Gezin g = vluchteling.getGezin();
+        if (g != null) {
+            for (Vluchteling gezinslid : g.getGezinsleden()) {
+                gezinslid.setAzc(azc);
+                azc.voegVluchtelingToe(gezinslid);
+            }
+        }
+    }
+
+    private void verhuisVluchtelingNaarAZC(Vluchteling vluchteling, AZC huidigAZC, AZC nieuwAZC) {
+        vluchteling.setAzc(nieuwAZC);
+        huidigAZC.verwijderVluchteling(vluchteling);
+        nieuwAZC.voegVluchtelingToe(vluchteling);
+
+        Gezin g = vluchteling.getGezin();
+        if (g != null) {
+            for (Vluchteling gezinslid : g.getGezinsleden()) {
+                gezinslid.setAzc(nieuwAZC);
+                huidigAZC.verwijderVluchteling(gezinslid);
+                nieuwAZC.voegVluchtelingToe(gezinslid);
+            }
+        }
+    }
+
+    public void veruizingVluchteling(){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Geef de voornaam van de vluchteling: ");
+        String vVoorNaam = scan.nextLine();
+        System.out.println("Geef de achternaam van de vluchteling: ");
+        String vAchternaam = scan.nextLine();
+
+        Vluchteling v = zoekVluchteling(vVoorNaam, vAchternaam);
+        if (v == null) {
+            System.out.println("Vluchteling niet geregistreerd.");
+            return;
+        }
+
+        System.out.println("Geef de naam van het huidige AZC: ");
+        String huidigAZCNaam = scan.nextLine();
+        AZC huidigAZC = seeder.getAZCByName(huidigAZCNaam);
+        if (huidigAZC == null) {
+            System.out.println("Huidig AZC niet gevonden.");
+            return;
+        }
+
+        Gemeente g = selecteerGemeente();
+        if (g == null) {
+            System.out.println("Geen gemeente gevonden.");
+            return;
+        }
+
+        AZC nieuwAZC = selecteerAZC(g);
+        if (nieuwAZC == null) {
+            System.out.println("Geen nieuw AZC gevonden.");
+            return;
+        }
+
+        verhuisVluchtelingNaarAZC(v, huidigAZC, nieuwAZC);
+        stuurBerichtNaarAZC(nieuwAZC, v);
+
+        System.out.println("Vluchteling " + vVoorNaam + " " + vAchternaam + " is succesvol verhuisd naar " + nieuwAZC.getNaam());
+
+    }
+
+    public void toonVluchtelingenLijst() {
+        System.out.println("Lijst met vluchtelingen:");
+        System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+        DataSeeder.getInstance().showVluchtelingen();
+    }
+
 }

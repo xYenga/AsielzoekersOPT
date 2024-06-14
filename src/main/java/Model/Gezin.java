@@ -30,4 +30,5 @@ public class Gezin {
     public void setGezinshoofd(Vluchteling gezinshoofd) {
         this.gezinshoofd = gezinshoofd;
     }
+
 }

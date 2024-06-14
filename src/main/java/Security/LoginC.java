@@ -7,6 +7,7 @@ public class LoginC {
     static DataSeeder seeder = DataSeeder.getInstance();
     private static LoginC instance = null;
     private Gebruiker aGebruiker;
+
     public void setaGebruiker(Gebruiker aGebruiker) {this.aGebruiker = aGebruiker;}
 
     private LoginC(){setaGebruiker(null);}
@@ -56,6 +57,7 @@ public class LoginC {
         }
         return null;
     }
+
 
     public void logoutMethode() {setaGebruiker(null);}
 }

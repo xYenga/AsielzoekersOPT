@@ -8,6 +8,9 @@ public class RapportGenerator implements IRapport{
 
     @Override
     public void maakRapport() {
+        seeder.showVluchtelingen();
+
+        System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
         for (Gemeente g : seeder.getGemeenten()){
             int percentageOpvang = (int)Math.ceil(g.getAantalInwoners() * 0.005);
             int extraOpgevangen = g.getAantalVluchtelingen() - percentageOpvang;

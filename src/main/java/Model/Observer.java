@@ -1,4 +1,4 @@
-package com.example.asielzoekersopt;
+package Model;
 
 import Model.Bericht;
 

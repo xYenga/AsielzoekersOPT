@@ -3,6 +3,7 @@ package com.example.asielzoekersopt;
 import Menu.Menu;
 import Model.Gemeente;
 import Security.DataSeeder;
+import Security.LoginC;
 
 public class Main {
     public static void main(String[]args){
@@ -12,6 +13,7 @@ public class Main {
             Menu menu = seeder.getMenu();
             menu.toonMenu();
         }
+
 
 
 

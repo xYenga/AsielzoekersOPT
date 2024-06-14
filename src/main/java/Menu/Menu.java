@@ -53,6 +53,7 @@ public class Menu {
         return null;
     }
 
+
     public void toonMenu () {
 
         Scanner scanner = new Scanner (System.in);

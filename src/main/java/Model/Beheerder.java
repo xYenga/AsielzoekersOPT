@@ -19,8 +19,10 @@ public class Beheerder{
 
     public void toonAZCs(Gemeente gemeente){
         System.out.println("Alle AZC's in de gemeente " + gemeente.getNaam());
-        for (AZC azc : gemeente.getAzcs()){
-            System.out.println(" - " + azc.getNaam());
+        for (AZC azc : azcs){
+            if(gemeente.getNaam().equals(azc.getAdres().getGemeente().getNaam())){
+                System.out.println(" - " + azc.getNaam());
+            }
         }
     }
     public void toonGemeentes(){
