@@ -323,7 +323,7 @@ public class DataSeeder {
         }
     }
 
-    private static Gemeente getGemeenteByNaam(String naam) {
+    public static Gemeente getGemeenteByNaam(String naam) {
         for (Gemeente gemeente : getInstance().getGemeenten()) {
             if (gemeente.getNaam().equals(naam)) {
                 return gemeente;
@@ -384,6 +384,15 @@ public class DataSeeder {
         for (Vluchteling v : getVluchtelingen()) {
             String vNaam = v.getVoorNaam() + " " + v.getAchterNaam();
             if (vNaam.equalsIgnoreCase(naam)) {
+                return v;
+            }
+        }
+        return null;
+    }
+
+    public Vluchteling getVluchtelingByNaam(String vNaam, String aNaam) {
+        for (Vluchteling v : getVluchtelingen()) {
+            if (vNaam.equalsIgnoreCase(v.getVoorNaam()) && aNaam.equalsIgnoreCase(v.getAchterNaam())) {
                 return v;
             }
         }

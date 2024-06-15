@@ -1,5 +1,6 @@
 package Model;
 
+import Security.DataSeeder;
 import Security.LoginC;
 
 public class Dossier {
@@ -15,10 +16,13 @@ public class Dossier {
         this.teruggekeerd = false;
     }
 
+    public Dossier(boolean asielAanvraagCompleet, String uitspraakIND, String plaatsWoning, boolean teruggekeerd) {
+    }
+
     //methods
-    public void modifyUitspraak(String uitspraakIND){
+    public void modifyUitspraak(String uitspraakIND, Dossier d, Vluchteling v){
         if(this.asielAanvraagCompleet){
-            this.uitspraakIND = uitspraakIND;
+            nieuwDossier(d.isAsielAanvraagCompleet(),this.uitspraakIND = uitspraakIND, getPlaatsWoning(),d.isTeruggekeerd(), v.getVoorNaam(), v.getAchterNaam());
         }
     }
 
@@ -32,11 +36,10 @@ public class Dossier {
     }
 
 
-    public void nieuwDossier(){
-        this.asielAanvraagCompleet = false;
-        this.uitspraakIND = "geen";
-        this.plaatsWoning = "nee";
-        this.teruggekeerd = false;
+    public void nieuwDossier(boolean asielAanvraagCompleet, String uitspraakIND, String plaatsWoning, boolean teruggekeerd, String vNaam, String aNaam){
+        Dossier d = new Dossier(asielAanvraagCompleet,uitspraakIND,plaatsWoning,teruggekeerd);
+        Vluchteling v = DataSeeder.getInstance().getVluchtelingByNaam(vNaam, aNaam);
+        v.setDossier(d);
     }
 
     public String getPlaatsWoning() {

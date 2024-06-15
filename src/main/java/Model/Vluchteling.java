@@ -201,6 +201,10 @@ public class Vluchteling extends Gebruiker implements IVluchteling{
         return gender;
     }
 
+    public void setDossier(Dossier dossier) {
+        this.dossier = dossier;
+    }
+
     @Override
     public Menu inloggen() {
         return DataSeeder.getInstance().getVluchtelingMenu();

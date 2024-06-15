@@ -143,8 +143,8 @@ public class COA {
         return instance;
     }
 
-    public void aanpassenVanDossier(Dossier dossier, String uitspraak){
-        dossier.modifyUitspraak(uitspraak);
+    public void aanpassenVanDossier(Dossier dossier, String uitspraak, Vluchteling vluchteling){
+        dossier.modifyUitspraak(uitspraak, dossier,vluchteling);
     }
     public void werkDossierBij(){
         Scanner scan = new Scanner(System.in);
@@ -173,7 +173,7 @@ public class COA {
         int keuze = scan.nextInt();
 
         if (keuze == 1){
-            werkUitspraakDossierBij(vDossier);
+            werkUitspraakDossierBij(vDossier, vluchteling);
         } else if (keuze == 2){
             werkPlaatsingDossierBij(vDossier);
         } else{
@@ -181,7 +181,7 @@ public class COA {
         }
     }
 
-    public void werkUitspraakDossierBij(Dossier d){
+    public void werkUitspraakDossierBij(Dossier d, Vluchteling vluchteling){
         Scanner scan = new Scanner(System.in);
         System.out.println("Geef de nieuwe uitspraak van de IND: ");
         System.out.println("1. Geen");
@@ -192,15 +192,18 @@ public class COA {
         int keuze = scan.nextInt();
         if  (keuze == 1){
             vUitspraak = "Geen";
-            d.modifyUitspraak(vUitspraak);
+            d.modifyUitspraak(vUitspraak, d, vluchteling);
+            System.out.println("Geen verblijfsvergunning verleent aan de vluchteling.");
         } else if (keuze == 2){
             vUitspraak = "Verblijfsvergunning";
-            d.modifyUitspraak(vUitspraak);
+            d.modifyUitspraak(vUitspraak, d, vluchteling);
+            System.out.println("Verblijfsvergunning verleent aan de vluchteling.");
         } else if (keuze == 3){
             vUitspraak = "Aanvraag afgewezen";
-            d.modifyUitspraak(vUitspraak);
+            d.modifyUitspraak(vUitspraak, d, vluchteling);
+            System.out.println("Aanvraag verblijfsvergunning afgewezen aan de vluchteling.");
         }
-        aanpassenVanDossier(d, vUitspraak);
+        aanpassenVanDossier(d, vUitspraak, vluchteling);
     }
     public void werkPlaatsingDossierBij(Dossier d){
         if(!d.getUitspraakIND().equalsIgnoreCase("Verblijfsvergunning")){
@@ -238,7 +241,12 @@ public class COA {
             return;
         }
 
-        Gemeente g = selecteerGemeente();
+        System.out.println();
+        System.out.println("In welke gemeente wilt u de vluchteling plaatsen?");
+
+        String gemeenteNaam = scan.nextLine();
+
+        Gemeente g = DataSeeder.getGemeenteByNaam(gemeenteNaam);
         if (g == null){
             System.out.println("Geen gemeente gevonden.");
             return;
@@ -261,32 +269,6 @@ public class COA {
         azc.krijgBericht(b);
     }
 
-    private Gemeente selecteerGemeente() {
-        Gemeente geselecteerdeGemeente = null;
-        int maxBeschikbarePlaatsen = 0;
-
-        for (Gemeente gemeente : seeder.getGemeenten()) {
-            int beschikbarePlaatsen = gemeente.getAangebodenPlaatsen();
-            if (beschikbarePlaatsen > maxBeschikbarePlaatsen) {
-                maxBeschikbarePlaatsen = beschikbarePlaatsen;
-                geselecteerdeGemeente = gemeente;
-            }
-        }
-
-        if (geselecteerdeGemeente == null) {
-            double minPercentage = Double.MAX_VALUE;
-            for (Gemeente gemeente : seeder.getGemeenten()) {
-                int inwoners = gemeente.getAantalInwoners();
-                int beschikbarePlaatsen = gemeente.getAangebodenPlaatsen();
-                double percentage = (double) beschikbarePlaatsen / inwoners;
-                if (percentage < minPercentage) {
-                    minPercentage = percentage;
-                    geselecteerdeGemeente = gemeente;
-                }
-            }
-        }
-        return geselecteerdeGemeente;
-    }
     private AZC selecteerAZC(Gemeente gemeente) {
         ArrayList<AZC> azcs = seeder.getAZCsInGemeente(gemeente);
         if (azcs.isEmpty()) {
@@ -347,6 +329,7 @@ public class COA {
     }
 
     public void veruizingVluchteling(){
+        DataSeeder seeder = DataSeeder.getInstance();
         Scanner scan = new Scanner(System.in);
         System.out.println("Geef de voornaam van de vluchteling: ");
         String vVoorNaam = scan.nextLine();
@@ -366,8 +349,12 @@ public class COA {
             System.out.println("Huidig AZC niet gevonden.");
             return;
         }
+        System.out.println();
 
-        Gemeente g = selecteerGemeente();
+        System.out.println("In welke gemeente wilt u de vluchteling plaatsen?");
+        String gemeenteNaam = scan.nextLine();
+
+        Gemeente g = DataSeeder.getGemeenteByNaam(gemeenteNaam);
         if (g == null) {
             System.out.println("Geen gemeente gevonden.");
             return;
@@ -383,7 +370,6 @@ public class COA {
         stuurBerichtNaarAZC(nieuwAZC, v);
 
         System.out.println("Vluchteling " + vVoorNaam + " " + vAchternaam + " is succesvol verhuisd naar " + nieuwAZC.getNaam());
-
     }
 
     public void toonVluchtelingenLijst() {
