@@ -25,18 +25,6 @@ public class Adres {
         return postcode;
     }
 
-    public void setStraat(String straat) {
-        this.straat = straat;
-    }
-
-    public void setNummer(int nummer) {
-        this.nummer = nummer;
-    }
-
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
-    }
-
     public Gemeente getGemeente() {
         return gemeente;
     }

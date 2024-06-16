@@ -1,18 +1,54 @@
 package com.example.asielzoekersopt;
 
 import Menu.Menu;
-import Model.Gemeente;
+import Model.*;
 import Security.DataSeeder;
 import Security.LoginC;
 
+import java.util.ArrayList;
+
 public class Main {
-    public static void main(String[]args){
+    public static void main(String[]args) {
+//        GewoneKamer gewoneKamer = new GewoneKamer(2, "Man", "Veilig");
+//        GewoneKamer gewoneKamer1 = new GewoneKamer(1, "Non-Binair", "Veilig");
+//
+//        System.out.println("Kamer Type: " + gewoneKamer.getType());
+//        System.out.println("Capaciteit: " + gewoneKamer.getCapaciteit());
+//        System.out.println("Gender: " + gewoneKamer.getGender());
+//        System.out.println("Veilig Voor Landers: " + gewoneKamer.getVeiligVoorLanders());
+//
+//        // Maak een vluchteling aan
+//        Land geboorteLand = new Land("VeiligLand", true);
+//        Dossier dossier = new Dossier(false, "Geen", "Nee", false);
+//        Vluchteling vluchteling = new Vluchteling("John", "Doe", "man", geboorteLand, 61, dossier, "johndoe", "password");
+//        Vluchteling vluchteling1 = new Vluchteling("Johnny", "Doe11", "Non-Binair", geboorteLand, 55, dossier, "johndoe", "password");
+//
+//        // Controleer of de vluchteling aan de kamer kan worden toegewezen
+//
+//        if (gewoneKamer.toewijzingRegel(vluchteling)) {
+//            gewoneKamer.voegVluchtelingToe(vluchteling);
+//            System.out.println("Vluchteling " + vluchteling.getVoorNaam() + " " + vluchteling.getAchterNaam() + " is toegewezen aan de gewone kamer.");
+//        } else {
+//            System.out.println("Geen geschikte kamer beschikbaar voor " + vluchteling.getVoorNaam() + " " + vluchteling.getAchterNaam());
+//        }
+//
+//        if (gewoneKamer1.toewijzingRegel(vluchteling1)) {
+//            gewoneKamer1.voegVluchtelingToe(vluchteling1);
+//            System.out.println("Vluchteling " + vluchteling1.getVoorNaam() + " " + vluchteling1.getAchterNaam() + " is toegewezen aan de gewone kamer.");
+//        } else {
+//            System.out.println("Geen geschikte kamer beschikbaar voor " + vluchteling1.getVoorNaam() + " " + vluchteling1.getAchterNaam());
+//        }
+//
+//    }
+
+
         DataSeeder seeder = DataSeeder.getInstance();
 
-        while (true){
+        while (true) {
             Menu menu = seeder.getMenu();
             menu.toonMenu();
         }
+    }
 
 
 
@@ -63,5 +99,5 @@ public class Main {
 //        Gemeente g = new Gemeente();
 //
 
-    }
 }
+

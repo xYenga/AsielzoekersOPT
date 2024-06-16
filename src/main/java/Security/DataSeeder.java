@@ -15,6 +15,7 @@ public class DataSeeder {
     private ArrayList<Land> veiligeLanden;
     private ArrayList<Menu> menus;
     private ArrayList<Kamer> kamers;
+    private ArrayList<Bericht> berichten;
 
 //    private ArrayList<Observer> observers;
 
@@ -117,16 +118,16 @@ public class DataSeeder {
         Menukeuze statusDossier = new Menukeuze("Status van dossier opvragen", new ActieStatusDossier());
         Menukeuze registreerNieuweAdres = new Menukeuze("Registreer nieuwe adres", new ActieRegistreerNieuweAdres());
         vluchtelingMenu.voegMenukeuzeToe(statusDossier);
-
-        LoginC lc = LoginC.getInstance();
-        Vluchteling aG = (Vluchteling) lc.getaGebruiker();
-        if(aG != null && aG.isPlaatsingInEigenWoningGestart()) {
-            vluchtelingMenu.voegMenukeuzeToe(registreerNieuweAdres);
-        }
-
+        vluchtelingMenu.voegMenukeuzeToe(registreerNieuweAdres);
         vluchtelingMenu.voegMenukeuzeToe(logout);
         vluchtelingMenu.voegMenukeuzeToe(exit);
         menus.add(vluchtelingMenu);
+
+        Menu vluchtelingMenu1 = new Menu("U bent ingelogd als vluchteling");
+        vluchtelingMenu1.voegMenukeuzeToe(statusDossier);
+        vluchtelingMenu1.voegMenukeuzeToe(logout);
+        vluchtelingMenu1.voegMenukeuzeToe(exit);
+        menus.add(vluchtelingMenu1);
     }
 
     public void initializeGebruikers(){
@@ -135,7 +136,7 @@ public class DataSeeder {
 
         AZCMedewerker azcMedewerker1 = new AZCMedewerker("Amsterdam_azc_user", "azc123");
         AZCMedewerker azcMedewerker2 = new AZCMedewerker("Rotterdam_azc_user", "azc123");
-        AZCMedewerker azcMedewerker3 = new AZCMedewerker("Den_Haag_azc_user", "azc123");
+        AZCMedewerker azcMedewerker3 = new AZCMedewerker("DH", "azc123");
 
         azcMedewerker1.setAzc(getAZCByNaam("Amsterdam AZC1"));
         azcMedewerker2.setAzc(getAZCByNaam("Rotterdam AZC1"));
@@ -145,12 +146,18 @@ public class DataSeeder {
         gebruikers.add(azcMedewerker2);
         gebruikers.add(azcMedewerker3);
 
+        Adres adres = new Adres("Ter Apelervenen", 10, "9561 MC",new Gemeente("Westerwolde", 0, 0));
+
         Dossier dossier1 = new Dossier();
-        gebruikers.add(new Model.Vluchteling("Voornaam1", "Achternaam1", "Mannelijk", new Land("Nederland", true), 25, dossier1 , "gebruikersnaam1", "wachtwoord1"));
+        gebruikers.add(new Model.Vluchteling("Voornaam1", "Achternaam1", "Mannelijk", new Land("Nederland", true), 25, dossier1 , "gebruikersnaam1", "wachtwoord1", adres));
         Dossier dossier2 = new Dossier();
-        gebruikers.add(new Model.Vluchteling("Voornaam2", "Achternaam2", "Vrouwelijk", new Land("Belgie", true), 30, dossier2, "gebruikersnaam2", "wachtwoord2"));
+        gebruikers.add(new Model.Vluchteling("Voornaam2", "Achternaam2", "Vrouwelijk", new Land("Belgie", true), 30, dossier2, "gebruikersnaam2", "wachtwoord2", adres));
         Dossier dossier3 = new Dossier();
-        gebruikers.add(new Model.Vluchteling("Voornaam3", "Achternaam3", "Mannelijk", new Land("Duitsland", true) , 35, dossier3, "gebruikersnaam3", "wachtwoord3"));
+        gebruikers.add(new Model.Vluchteling("Voornaam3", "Achternaam3", "Mannelijk", new Land("Duitsland", true), 35, dossier3, "gebruikersnaam3", "wachtwoord3", adres));
+        Dossier dossier4 = new Dossier(true, "Verblijfsvergunning", "Gestart", false);
+        gebruikers.add(new Model.Vluchteling("V1", "A1", "Mannelijk", new Land("Duitsland", true), 35, dossier4, "g1", "w1", adres));
+
+        dossier4.nieuwDossier(true,"Verblijfsvergunning","Gestart",false);
 
         registerObservers();
     }
@@ -199,6 +206,10 @@ public class DataSeeder {
         seedKamers(Objects.requireNonNull(getAZCByNaam("Amsterdam AZC1")), Objects.requireNonNull(getAZCByNaam("Rotterdam AZC1")), Objects.requireNonNull(getAZCByNaam("Den Haag AZC1")));
     }
 
+    public void initializeBerichten(){
+        berichten.add(new Bericht("Jimmy", true,"Vluchteling Jimmny vertrekt.","Vertrekt"));
+    }
+
     public void initialize(){
         if(initialized) return;
         initialized = true;
@@ -208,6 +219,7 @@ public class DataSeeder {
         initializeMenus();
         initializeAZCs();
         initializeGebruikers();
+        initializeBerichten();
 
         registerObservers();
     }
@@ -216,16 +228,16 @@ public class DataSeeder {
         ArrayList<Model.Vluchteling> vluchtelingen = getVluchtelingen();
         for (AZC azc : azcs) {
             for (Model.Vluchteling vluchteling : vluchtelingen) {
-                vluchteling.registreerObserver(azc);
+                vluchteling.getoV().registreerObserver(azc);
             }
         }
     }
 
     public void seedKamers(AZC azc1, AZC azc2, AZC azc3) {
-        Kamer jongerenKamer1 = new JongerenKamer(10, "Man", "ja", "Jongeren");
-        Kamer gewoneKamer1 = new GewoneKamer(2, "Vrouw", "nee", "Gewone");
-        Kamer gewoneKamer1_1 = new GewoneKamer(1, "Vrouw", "ja", "Gewone");
-        Kamer gezinsKamer1 = new GezinsKamer(6, "mixed", "ja", "Gezins");
+        Kamer jongerenKamer1 = new JongerenKamer(10, "Man", "ja");
+        Kamer gewoneKamer1 = new GewoneKamer(2, "Vrouw", "nee");
+        Kamer gewoneKamer1_1 = new GewoneKamer(1, "Vrouw", "ja");
+        Kamer gezinsKamer1 = new GezinsKamer(6, "mixed", "ja");
 
         kamers.add(jongerenKamer1);
         kamers.add(gewoneKamer1);
@@ -237,9 +249,9 @@ public class DataSeeder {
         azc1.voegKamer(gewoneKamer1_1);
         azc1.voegKamer(gezinsKamer1);
 
-        Kamer jongerenKamer2 = new JongerenKamer(8, "Man", "ja", "Jongeren");
-        Kamer gewoneKamer2 = new GewoneKamer(4, "Man", "nee", "Gewone");
-        Kamer gezinsKamer2 = new GezinsKamer(5, "mixed", "ja", "Gezins");
+        Kamer jongerenKamer2 = new JongerenKamer(8, "Man", "ja");
+        Kamer gewoneKamer2 = new GewoneKamer(4, "Man", "nee");
+        Kamer gezinsKamer2 = new GezinsKamer(5, "mixed", "ja");
 
         kamers.add(jongerenKamer2);
         kamers.add(gewoneKamer2);
@@ -249,9 +261,11 @@ public class DataSeeder {
         azc2.voegKamer(gewoneKamer2);
         azc2.voegKamer(gezinsKamer2);
 
-        Kamer jongerenKamer3 = new JongerenKamer(15, "Vrouw", "ja", "Jongeren");
-        Kamer gewoneKamer3 = new GewoneKamer(1, "Man", "nee", "Gewone");
-        Kamer gezinsKamer3 = new GezinsKamer(4, "mixed", "ja", "Gezins");
+        Kamer jongerenKamer3 = new JongerenKamer(15, "Vrouw", "ja");
+        Kamer gewoneKamer3 = new GewoneKamer(1, "Man", "nee");
+        Kamer gezinsKamer3 = new GezinsKamer(4, "mixed", "ja");
+
+        Kamer gewoneKamer5 = new GewoneKamer(100, "Man", "ja");
 
         kamers.add(jongerenKamer3);
         kamers.add(gewoneKamer3);
@@ -260,7 +274,16 @@ public class DataSeeder {
         azc3.voegKamer(jongerenKamer3);
         azc3.voegKamer(gewoneKamer3);
         azc3.voegKamer(gezinsKamer3);
+        azc3.voegKamer(gewoneKamer5);
+
+//        for(int i = 0; i < 100; i++){
+//            Adres adresDH = getAZCByName("Den Haag AZC1").getAdres();
+//            Dossier dossier = new Dossier();
+//            Vluchteling v = new Model.Vluchteling("Voornaam1", "Achternaam1", "Mannelijk", new Land("Nederland", true), 25, dossier , "gebruikersnaam1", "wachtwoord1", adresDH);
+//            gebruikers.add(v);
+//        }
     }
+
 
     DataSeeder(){
         this.gebruikers = new ArrayList<>();
@@ -269,6 +292,7 @@ public class DataSeeder {
         this.veiligeLanden = new ArrayList<>();
         this.menus = new ArrayList<>();
         this.kamers = new ArrayList<>();
+        this.berichten = new ArrayList<>();
 //        this.observers = new ArrayList<>();
     }
 
@@ -293,7 +317,16 @@ public class DataSeeder {
     public Menu getBeheerderMenu(){return menus.get(1);}
     public Menu getCOAMedewerkerMenu(){return menus.get(3);}
     public Menu getAZCMedewerkerMenu(){return menus.get(2);}
-    public Menu getVluchtelingMenu(){return menus.get(4);}
+    public Menu getVluchtelingMenu(){
+        LoginC lc = LoginC.getInstance();
+        Vluchteling aG = (Vluchteling) lc.getaGebruiker();
+
+        if (aG != null && aG.isPlaatsingGestart()) {
+            return menus.get(4);
+        } else {
+            return menus.get(5);
+        }
+    }
 
     public ArrayList<Gebruiker> getGebruikers() {
         return gebruikers;
@@ -399,6 +432,19 @@ public class DataSeeder {
         return null;
     }
 
+    public ArrayList<Bericht> getBerichten() {
+        return berichten;
+    }
+
+    public void voegBerichtToe(Bericht b){
+        berichten.add(b);
+    }
+
+    public void verwijderBericht(Bericht b){
+        berichten.remove(b);
+    }
+
+
     public void showVluchtelingen() {
         for (Vluchteling v : getVluchtelingen()) {
             System.out.println(v.getVoorNaam() + " " + v.getAchterNaam());
@@ -414,4 +460,27 @@ public class DataSeeder {
         }
         return azcPerGemeente;
     }
+
+
+    public void updateVluchteling(Vluchteling vluchteling) {
+        for (int i = 0; i < gebruikers.size(); i++){
+            if (gebruikers.get(i) instanceof Vluchteling){
+                Vluchteling v = (Vluchteling) gebruikers.get(i);
+                if (v.getGebruikersnaam().equals(vluchteling.getGebruikersnaam())){
+                    gebruikers.set(i,vluchteling);
+                    break;
+                }
+            }
+        }
+    }
+
+    public Dossier getDossierByGebruikersnaam(String gebruikersnaam) {
+        for (Gebruiker gebruiker : gebruikers) {
+            if (gebruiker instanceof Vluchteling && gebruiker.getGebruikersnaam().equals(gebruikersnaam)) {
+                return ((Vluchteling) gebruiker).getDossier();
+            }
+        }
+        return null;
+    }
+
 }

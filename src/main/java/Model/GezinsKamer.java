@@ -1,40 +1,28 @@
 package Model;
 
 public class GezinsKamer  extends Kamer{
-    public GezinsKamer(int capaciteit, String gender, String veiligVoorLanders, String type) {
-        super(capaciteit, gender, veiligVoorLanders, type);
+    public GezinsKamer(int capaciteit, String gender, String veiligVoorLanders) {
+        super(capaciteit, gender, veiligVoorLanders, "Gezin");
     }
 
     @Override
-    boolean heeftGezin() {
-        return true;
+    Geschikt heeftGezin() {
+        return new Geschikt(true);
     }
 
     @Override
-    boolean isNBOfOuderen() {
-        return false;
+    Geschikt isNBOfOuderen(int leeftijd) {
+        return new Geschikt(false);
     }
 
     @Override
-    boolean geschiktVoorGender(String gender) {
-        return getGender().equals(gender);
+    Geschikt geschiktVoorGender(String gender) {return new Geschikt(getGender().equalsIgnoreCase(gender) || getGender().equalsIgnoreCase("Mixed"));}
+
+    @Override
+    Geschikt geschiktVoorJongerenOnder18(int leeftijd) {
+        return new Geschikt(true);
     }
 
     @Override
-    boolean geschiktVoorJongerenOnder18() {
-        return false;
-    }
-
-    @Override
-    boolean geschiktVoorVeiligeLand() {
-        return true;
-    }
-//    @Override
-//    boolean geschiktVoorVeiligeLand(Land land) {
-//        if(land.isVeilig()){
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
+    Geschikt geschiktVoorVeiligeLand() {return new Geschikt(true);}
 }

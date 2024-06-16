@@ -1,8 +1,5 @@
 package Model;
 
-import Security.DataSeeder;
-import Security.LoginC;
-
 public class Dossier {
     boolean asielAanvraagCompleet;
     String uitspraakIND;
@@ -16,14 +13,14 @@ public class Dossier {
         this.teruggekeerd = false;
     }
 
-    public Dossier(boolean asielAanvraagCompleet, String uitspraakIND, String plaatsWoning, boolean teruggekeerd) {
+    public Dossier(boolean b, String verblijfsvergunning, String gestart, boolean b1) {
     }
 
-    //methods
-    public void modifyUitspraak(String uitspraakIND, Dossier d, Vluchteling v){
-        if(this.asielAanvraagCompleet){
-            nieuwDossier(d.isAsielAanvraagCompleet(),this.uitspraakIND = uitspraakIND, getPlaatsWoning(),d.isTeruggekeerd(), v.getVoorNaam(), v.getAchterNaam());
-        }
+    public void modifyUitspraak(String uitspraakIND){
+            this.uitspraakIND=uitspraakIND;
+            if(!uitspraakIND.equals("Geen")) {
+                this.asielAanvraagCompleet = true;
+            }
     }
 
     public void plaatsingWoning(boolean check){
@@ -36,10 +33,11 @@ public class Dossier {
     }
 
 
-    public void nieuwDossier(boolean asielAanvraagCompleet, String uitspraakIND, String plaatsWoning, boolean teruggekeerd, String vNaam, String aNaam){
-        Dossier d = new Dossier(asielAanvraagCompleet,uitspraakIND,plaatsWoning,teruggekeerd);
-        Vluchteling v = DataSeeder.getInstance().getVluchtelingByNaam(vNaam, aNaam);
-        v.setDossier(d);
+    public void nieuwDossier(boolean asielAanvraagCompleet, String uitspraakIND, String plaatsWoning, boolean teruggekeerd){
+        this.asielAanvraagCompleet = asielAanvraagCompleet;
+        this.uitspraakIND = uitspraakIND;
+        this.plaatsWoning = plaatsWoning;
+        this.teruggekeerd = teruggekeerd;
     }
 
     public String getPlaatsWoning() {
@@ -53,18 +51,12 @@ public class Dossier {
     public String getUitspraakIND() {
         return uitspraakIND;
     }
-
-    public void setUitspraakIND(String uitspraakIND) {
-        this.uitspraakIND = uitspraakIND;
-    }
-
+    
     public boolean isAsielAanvraagCompleet() {
         return asielAanvraagCompleet;
     }
 
-    public void setAsielAanvraagCompleet(boolean asielAanvraagCompleet) {
-        this.asielAanvraagCompleet = asielAanvraagCompleet;
-    }
+    public void setAsielAanvraagCompleet(boolean asielAanvraagCompleet) {this.asielAanvraagCompleet = asielAanvraagCompleet;}
 
     public boolean isTeruggekeerd() {
         return teruggekeerd;

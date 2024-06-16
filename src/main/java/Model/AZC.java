@@ -11,6 +11,9 @@ public class AZC implements Observer {
     private Adres adres;
     private ArrayList<Kamer> kamers;
     private ArrayList<Bericht> berichtenbox;
+    Scanner scan = new Scanner(System.in);
+    DataSeeder seeder = DataSeeder.getInstance();
+
     private int index;
 
     public void setIndex(int index) {
@@ -40,68 +43,79 @@ public class AZC implements Observer {
         this.berichtenbox = new ArrayList<>();
     }
     public AZC(){}
-
-    public String selecteerBericht(){
-        DataSeeder seeder = DataSeeder.getInstance();
-        toonBerichtenBox();
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Selecteer welke bericht u wilt zien.");
+    private int vraagKeuze(String vraag){
+        System.out.println(vraag);
         int keuze = scan.nextInt();
-            
+        scan.nextLine();
+        return keuze;
+    }
+
+    public void selecteerBericht(){
+        toonBerichtenBox();
+        int keuze = vraagKeuze("Selecteer welke bericht u wilt zien.");
+
         Bericht b = selecteerBericht(keuze);
-        boolean relevant = true;
         System.out.println(b);
 
-        System.out.println("Wat wilt u doen met deze bericht?: ");
-        System.out.println("1. Toepassing van het bericht");
-        System.out.println("2. Cancel");
-        int keuze2 = scan.nextInt();
+        int keuze2 = vraagKeuze("Wat wilt u doen met deze bericht?: \n1. Toepassing van het bericht\n2. Cancel");
+
         if(keuze2 == 1){
-            Vluchteling v = seeder.getVluchteling(b.getNaamVluchteling());
-            if(v != null){
-                Gezin g = v.getGezin();
-                if (b.getType().equalsIgnoreCase("vertrek")){
-                    geefSlaapplaatsVrij(v);
-                    if (g != null){
-                        for (Vluchteling gV : g.getGezinsleden()){
-                            geefSlaapplaatsVrij(gV);
-                            relevant = false;
-                        }
-                    }
-                } else if (b.getType().equalsIgnoreCase("plaatsing")) {
-                    wijsKamerToe(v);
-                    if (g != null){
-                        for (Vluchteling gV : g.getGezinsleden()){
-                            wijsKamerToe(gV);
-                            relevant = false;
-                        }
-                    }
-                }
-                verwijderBericht(b, relevant);
-            } else {
-                System.out.println("Geen vluchteling gevonden.");
-            }
-        } else if(keuze2 == 2){
-            return null;
+            verwerkBericht(b);
+        }
+    }
+
+    public Bericht selecteerBericht(int index) {
+        if (index >= 1 && index <= DataSeeder.getInstance().getBerichten().size()) {
+            Bericht bericht = DataSeeder.getInstance().getBerichten().get(index - 1);
+            toonBerichtInfo(bericht);
+            return bericht;
         }
         return null;
     }
 
-    public Bericht selecteerBericht(int index) {
-        if (index >= 1 && index <= berichtenbox.size()) {
-            Bericht bericht = berichtenbox.get(index - 1);
-            System.out.println("Gaat het om de plaatsing of om het vertrek van een vluchteling? " + bericht.getType());
-            System.out.println("De naam van de vluchteling: " + bericht.getNaamVluchteling());
-            System.out.println("De eventuele namen van de vluchtelingen uit hetzelfde gezin: ");
-            Gezin g = showList(bericht.getNaamVluchteling());
-            if (g != null) {
-                for (Vluchteling gezinslid : g.getGezinsleden()) {
-                    System.out.println(gezinslid.getVoorNaam() + " " + gezinslid.getAchterNaam());
+    public void toonBerichtInfo(Bericht bericht){
+        System.out.println("Gaat het om de plaatsing of om het vertrek van een vluchteling? " + bericht.getType());
+        System.out.println("De naam van de vluchteling: " + bericht.getNaamVluchteling());
+        System.out.println("De eventuele namen van de vluchtelingen uit hetzelfde gezin: ");
+        Gezin g = showList(bericht.getNaamVluchteling());
+        if (g != null) {
+            for (Vluchteling gezinslid : g.getGezinsleden()) {
+                System.out.println(gezinslid.getVoorNaam() + " " + gezinslid.getAchterNaam());
+            }
+        }
+    }
+
+    public void verwerkBericht(Bericht b){
+        if (b.getType() == null) {
+            System.out.println("Het berichttype is null.");
+            return;
+        }
+
+        Vluchteling v = seeder.getVluchteling(b.getNaamVluchteling());
+        if (v != null) {
+            Gezin g = v.getGezin();
+            if (b.getType().equalsIgnoreCase("vertrek")) {
+                geefSlaapplaatsVrij(v);
+                if (g != null) {
+                    for (Vluchteling gV : g.getGezinsleden()) {
+                        geefSlaapplaatsVrij(gV);
+                    }
+                    System.out.println("Kamer is vrijgemaakt.");
+                }
+            } else if (b.getType().equalsIgnoreCase("plaatsing")) {
+                wijsKamerToe(v);
+                if (g != null) {
+                    for (Vluchteling gV : g.getGezinsleden()) {
+                        wijsKamerToe(gV);
+                    }
+                    System.out.println("Kamer is gegeven aan de vluchteling(en).");
                 }
             }
-            return bericht;
+            verwijderBericht(b, false);
+            System.out.println("\nBericht is verwijderd uit de berichtenbox.");
+        } else {
+            System.out.println("Geen vluchteling gevonden.");
         }
-        return null;
     }
 
     public Gezin showList(String naam){
@@ -121,43 +135,33 @@ public class AZC implements Observer {
     public void verwijderBericht(Bericht bericht, boolean relevant){
         if(!relevant) {
             berichtenbox.remove(bericht);
+            DataSeeder.getInstance().verwijderBericht(bericht);
         }
     }
 
     public void toonBerichtenBox(){
-        zetBerichtenBoxOp(getNaam());
+        System.out.println("Berichten in de berichtenbox:");
+        zetBerichtenBoxOp();
     }
 
-    public void zetBerichtenBoxOp(String azc){
-        if (azc.equalsIgnoreCase(getNaam())){
-            index = 1;
-            for(Bericht b : berichtenbox){
-                if(b.isRelevant() && isVluchtelingGeregistreerd(b)){
-                    System.out.println(index + ". " + b);
-                    index++;
-                }
-            }
-            setIndex(index);
-        }
+    public void zetBerichtenBoxOp(){
+        index = 1;
+        for(Bericht b : DataSeeder.getInstance().getBerichten()){
+            toonBericht(index, b);
+            index++;
+           }
+        setIndex(index);
     }
 
-    private boolean isVluchtelingGeregistreerd(Bericht bericht) {
-        DataSeeder seeder = DataSeeder.getInstance();
-        Vluchteling vluchteling = seeder.getVluchteling(bericht.getNaamVluchteling());
-        if (vluchteling != null) {
-            for (Kamer kamer : kamers) {
-                if (kamer.getVluchtelingen().contains(vluchteling)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    private void toonBericht(int index, Bericht b){
+        System.out.println(index + ". " + b.showBericht(b));
     }
+
 
     public void voegVluchtelingToe(Vluchteling vluchteling) {
         for (Kamer kamer : kamers) {
             if (kamer.toewijzingRegel(vluchteling)) {
-                kamer.voegVluchtelingToe(vluchteling);
+                kamer.voegVluchtelingToe(vluchteling, kamer);
                 return;
             }
         }
@@ -175,12 +179,13 @@ public class AZC implements Observer {
     public void wijsKamerToe(Vluchteling vluchteling) {
         for (Kamer kamer : kamers) {
             if (kamer.toewijzingRegel(vluchteling)) {
-                kamer.voegVluchtelingToe(vluchteling);
+                kamer.voegVluchtelingToe(vluchteling, kamer);
                 return;
             }
         }
         System.out.println("Geen geschikte kamer beschikbaar voor " + vluchteling.getVoorNaam() +" "+ vluchteling.getAchterNaam());
     }
+
     public void geefSlaapplaatsVrij(Vluchteling vluchteling) {
         for (Kamer kamer : kamers) {
             if (kamer.verwijderVluchteling(vluchteling)) {
@@ -206,7 +211,4 @@ public class AZC implements Observer {
         voegBericht(bericht);
     }
 
-    public void krijgBericht(Bericht b) {
-
-    }
 }

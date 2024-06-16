@@ -1,40 +1,39 @@
 package Model;
 
-public class GewoneKamer  extends Kamer{
-    public GewoneKamer(int capaciteit, String gender, String veiligVoorLanders, String type) {
-        super(capaciteit, gender, veiligVoorLanders, type);
+public class GewoneKamer extends Kamer{
+    public GewoneKamer(int capaciteit, String gender, String veiligVoorLanders) {
+        super(capaciteit, gender, veiligVoorLanders, "Gewone");
     }
 
     @Override
-    boolean heeftGezin() {
-        return false;
+    Geschikt heeftGezin() {
+        return new Geschikt(false);
     }
 
     @Override
-    boolean isNBOfOuderen() {
-        return getCapaciteit() == 1;
+    Geschikt isNBOfOuderen(int leeftijd) {
+        if (getCapaciteit() == 1){
+            return new Geschikt(getGender().equalsIgnoreCase("Non-Binair") || leeftijd >= 60);
+        }else {
+            return new Geschikt(!getGender().equalsIgnoreCase("Non-Binair") && leeftijd < 60);
+        }
     }
 
     @Override
-    boolean geschiktVoorGender(String gender) {
-        return getGender().equals(gender);
+    Geschikt geschiktVoorGender(String gender) {
+        return new Geschikt(getGender().equalsIgnoreCase(gender) || "Mixed".equalsIgnoreCase(getGender()));
     }
 
     @Override
-    boolean geschiktVoorJongerenOnder18() {
-        return false;
+    Geschikt geschiktVoorJongerenOnder18(int leeftijd) {
+        if(leeftijd < 18){
+            return new Geschikt(false);
+        }
+        return new Geschikt(true);
     }
 
     @Override
-    boolean geschiktVoorVeiligeLand() {
-        return getVeiligVoorLanders().equals("ja");
+    Geschikt geschiktVoorVeiligeLand() {
+        return new Geschikt(getVeiligVoorLanders().equalsIgnoreCase("veilig") || getVeiligVoorLanders().equalsIgnoreCase("onveilig"));
     }
-//    @Override
-//    boolean geschiktVoorVeiligeLand(Land land) {
-//        if(land.isVeilig()){
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
 }

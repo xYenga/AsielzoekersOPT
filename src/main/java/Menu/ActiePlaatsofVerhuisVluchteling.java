@@ -5,6 +5,6 @@ import Model.COA;
 public class ActiePlaatsofVerhuisVluchteling implements IActie{
     @Override
     public void voerActieUit() {
-        COA.getInstance().plaatsingOfVeruizingVluchteling();
+        COA.getInstance().plaatsingOfVerhuizingVluchteling();
     }
 }

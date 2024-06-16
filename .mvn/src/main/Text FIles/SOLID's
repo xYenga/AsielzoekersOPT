@@ -1,0 +1,28 @@
+
+-   Single Responsibility Principle (SRP):
+Het Single Responsibility Principle wordt toegepast via de Interface IRapport. In IRapport wordt er alleen maar een concept gemaakt voor het genereren van een rapportage.
+Hierdoor hoeven de betrekkende klasen daar niet op te focussen, in dit geval de klassen RapportGenerator, door de rapport Functionaliteiten gescheiden te houden. De Rapporten kunnen hierdoor ook makkelijker
+aangepassen en uitgebereid worden in de klassen waar ze worden geimplementeerd.
+
+-   Open/Closed Principle (OCP):
+Security/Gebruiker en Model/Kamer klassen zijn een voorbeeld van een Open/CLosed Principle. Open voor uitbeiding, maar gesloten voor wijzigingen. Doordat Gebruiker en Kamer child-klasse
+alles kan laten overerven,kunnen er uitbreidingen plaatsvinden (Bijvoorbeeld als er een nieuwe type gebruiker of kamer komt en deze te laten erven van de Parent-klasse).
+Niks hoeft gewijzigd te worden in de Parent-klasse, waardoor de klasse gesloten staat voor wijzigingen.
+
+Een voorbeeld is de klasse Kamer. Momenteel kunnen zijn er 3 type kamers, maar er kan later een nieuwe type kamers worden toegevoegd(Open). Doordat alles al staat in de Kamer klasse,
+hoeft er niks in de klasse veranderd te worden(Closed).
+
+-   Liskov Substitution Principle (LSP):
+LSP wordt toegepast op de gebruiker klasse. Hoe het hier gebruikt wordt doordat COAMedewerker, Beheerder, AZCMedewerker en Vluchteling child-klasses zijn van Gebruiker,
+kunnen deze klasse als vervangende klassen voor Gebruiker gebruikt worden. Wanneer deze klassen gebruikt worden, verandert er niets aan het gedrag van het programma. Met deze toepassing
+kunnen we er ook voor zorgen dat de programma verschillende inlog logica heeft voor iedere gebruikerstype, waardoor iedere gebruiker een eigen dashboard kan krijgen dat relevant voor
+hen is, terwijl het richtlijnen volgt van de klasse Gebruiker.
+
+-   Interface Segregation Principle (ISP):
+Doordat er met specifieke interfaces voor verschillende functies gewerkt wordt, kan je de Interface Segregation Principle toepassen. In de interface van IRapport,
+worden de afhankelijkheden tussen klassen verminderd voor rapportagegerelateerde methoden, informatie staat dat relevant voor hen is. Omdat het in de form van een interface is,
+kunnen we elke klasse methods meegegeven die relevant voor hen is. Dit zorgt ervoor dat interfaces niet geimplementeerd worden in klasse waar ze niet nodig zijn.
+
+
+Dependency Inversion Principle (DIP): X
+

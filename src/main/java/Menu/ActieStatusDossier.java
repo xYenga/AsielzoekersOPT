@@ -1,6 +1,6 @@
 package Menu;
 
-import Model.IVluchteling;
+import Model.Vluchteling;
 import Security.Gebruiker;
 import Security.LoginC;
 
@@ -9,7 +9,7 @@ public class ActieStatusDossier implements IActie{
     public void voerActieUit() {
         LoginC lc = LoginC.getInstance();
         Gebruiker gebruiker = lc.getaGebruiker();
-        if(gebruiker instanceof IVluchteling v){
+        if(gebruiker instanceof Vluchteling v){
             v.statusDossier();
         }
     }

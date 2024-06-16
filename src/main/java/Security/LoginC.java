@@ -1,6 +1,5 @@
 package Security;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LoginC {
@@ -10,7 +9,7 @@ public class LoginC {
 
     public void setaGebruiker(Gebruiker aGebruiker) {this.aGebruiker = aGebruiker;}
 
-    private LoginC(){setaGebruiker(null);}
+    public LoginC(){setaGebruiker(null);}
 
     public static LoginC getInstance() {
         if(instance==null){
@@ -22,7 +21,6 @@ public class LoginC {
     public Gebruiker getaGebruiker() {return aGebruiker;}
     public boolean isIngelogd(){return getaGebruiker() != null;}
 
-
     public static boolean authenticeren(String gebruikersnaam, String wachtwoord) {
         for(Gebruiker g : seeder.getGebruikers()) {
             if(g.getGebruikersnaam().equals(gebruikersnaam) && g.getWachtwoord().equals(wachtwoord)){
@@ -31,7 +29,25 @@ public class LoginC {
         }
         return false;
     }
-    public Gebruiker inlogMethode() {
+
+    public Gebruiker logGebruikerIn(String gebruikersnaam, String wachtwoord){
+        if (authenticeren(gebruikersnaam, wachtwoord)) {
+            Gebruiker g = seeder.getGebruikerByGebruikersnaam(gebruikersnaam);
+            if (g != null){
+                setaGebruiker(g);
+                g.inloggen();
+                System.out.println("Welkom " + g.getGebruikersnaam());
+                return g;
+            } else{
+                System.out.println("Gebruiker bestaat niet.");
+            }
+        } else {
+            System.out.println("Ongeldige gebruikersnaam en/of wachtwoord. Probeer opnieuw in te loggen.");
+        }
+        return null;
+    }
+
+    public void inlogMethode() {
         Scanner scan = new Scanner(System.in);
         boolean isIngelogd = false;
 
@@ -41,23 +57,14 @@ public class LoginC {
             System.out.println();
             System.out.println("Voer je wachtwoord in: ");
             String wachtwoord = scan.nextLine();
-            if (authenticeren(gebruikersnaam, wachtwoord)) {
-                Gebruiker g = seeder.getGebruikerByGebruikersnaam(gebruikersnaam);
-                if (g != null){
-                   setaGebruiker(g);
-                   g.inloggen();
-                   return g;
-                } else{
-                    System.out.println("Gebruiker bestaat niet.");
-                }
-            } else {
-                System.out.println("Ongeldige gebruikersnaam en/of wachtwoord. Probeer opnieuw in te loggen.");
+            Gebruiker g = logGebruikerIn(gebruikersnaam,wachtwoord);
+
+            if (g != null){
+                isIngelogd = true;
             }
             System.out.println();
         }
-        return null;
     }
-
 
     public void logoutMethode() {setaGebruiker(null);}
 }
