@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="487375ca-0447-4b06-b2df-0fa7e321c6b1" name="Changes" comment="80% procent af, Alleen nog kijken naar of alles met elkaar is geconnect en de Observer Pattern goed werkt. Dan nog even Code Smells weg halen die ik heb laten staan. In principe weet ik al wat ik testen, dus daar kan ik even naar kijken.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Menu/ActieEmpty.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/LoginCTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/VluchtelingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/AZC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/AZC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Bericht.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Bericht.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/COA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/COA.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Dossier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Dossier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Land.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Land.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Vluchteling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Vluchteling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Security/DataSeeder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Security/DataSeeder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Security/LoginC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Security/LoginC.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="develop" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;xYenga&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="a6e47178-6e4c-486c-bd61-3a02193816f9" />
+        <option name="url" value="https://github.com/xYenga/AsielzoekersOPT.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2faE658mONyyvb61cPLAzoD94CA" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;JUnit.LoginCTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoginCTest.testConditionCoverage.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoginCTest.testModifiedConditionAndDecisionCoverage.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoginCTest.testMultipleConditionCoverage.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VluchtelingTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VluchtelingTest.testStatusDossier.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VluchtelingTest.testStatusDossier1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VluchtelingTest.testStatusDossier2.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VluchtelingTest.testStatusDossier3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VluchtelingTest.testStatusDossier4.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VluchtelingTest.testStatusDossier5.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VluchtelingTest.testStatusDossier6.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VluchtelingTest.testStatusDossier7.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VluchtelingTest.testStatusDossier8.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.VluchtelingTest.testStatusDossier9.executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;TestNG.LoginCTest.testConditionCoverage.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;features&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Anthony/IdeaProjects/AsielzoekersOPT/src/main/Text FIles&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Anthony\IdeaProjects\AsielzoekersOPT\src\main\Text FIles" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Anthony\IdeaProjects\AsielzoekersOPT\src\main\Text FIles" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Menu" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.asielzoekersopt.Main" />
+      <module name="AsielzoekersOPT" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.asielzoekersopt.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="VluchtelingTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AsielzoekersOPT" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="VluchtelingTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="VluchtelingTest.testStatusDossier7" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AsielzoekersOPT" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="VluchtelingTest" />
+      <option name="METHOD_NAME" value="testStatusDossier7" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="VluchtelingTest.testStatusDossier8" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AsielzoekersOPT" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="VluchtelingTest" />
+      <option name="METHOD_NAME" value="testStatusDossier8" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="VluchtelingTest.testStatusDossier9" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AsielzoekersOPT" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="VluchtelingTest" />
+      <option name="METHOD_NAME" value="testStatusDossier9" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.VluchtelingTest" />
+        <item itemvalue="JUnit.VluchtelingTest.testStatusDossier9" />
+        <item itemvalue="JUnit.VluchtelingTest.testStatusDossier8" />
+        <item itemvalue="JUnit.VluchtelingTest.testStatusDossier7" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-18.0.2-corretto-18.0.2-4caba194b151-5720f15e" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="487375ca-0447-4b06-b2df-0fa7e321c6b1" name="Changes" comment="" />
+      <created>1714030609366</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1714030609366</updated>
+      <workItem from="1714030610405" duration="2767000" />
+      <workItem from="1714034121592" duration="4370000" />
+      <workItem from="1714384222724" duration="5279000" />
+      <workItem from="1714460669330" duration="833000" />
+      <workItem from="1714649039744" duration="9538000" />
+      <workItem from="1714720943105" duration="6773000" />
+      <workItem from="1714730810518" duration="651000" />
+      <workItem from="1715162657659" duration="1964000" />
+      <workItem from="1715527448319" duration="3966000" />
+      <workItem from="1715775991735" duration="9244000" />
+      <workItem from="1715932445524" duration="1740000" />
+      <workItem from="1717138680751" duration="11834000" />
+      <workItem from="1717410049912" duration="6737000" />
+      <workItem from="1717842014620" duration="7303000" />
+      <workItem from="1718035928464" duration="8196000" />
+      <workItem from="1718082028072" duration="18551000" />
+      <workItem from="1718183583679" duration="31162000" />
+      <workItem from="1718262354829" duration="44876000" />
+      <workItem from="1718343064427" duration="18867000" />
+      <workItem from="1718437982400" duration="43552000" />
+      <workItem from="1718492027052" duration="824000" />
+    </task>
+    <task id="LOCAL-00001" summary="Edit the classes a bit.">
+      <option name="closed" value="true" />
+      <created>1714033835494</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714033835494</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added Files for documentation">
+      <option name="closed" value="true" />
+      <created>1714460883499</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1714460883499</updated>
+    </task>
+    <task id="LOCAL-00003" summary="- Security toegevoegd&#10;- SOLID's en Patterns afgemaakt&#10;- JSON toegevoegd voor Gebruikers (kijken of het werkt)&#10;- Klassendiagram denk ik af...?">
+      <option name="closed" value="true" />
+      <created>1717150393217</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1717150393218</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Realisatie start">
+      <option name="closed" value="true" />
+      <created>1718082096205</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1718082096205</updated>
+    </task>
+    <task id="LOCAL-00005" summary="50% procent van de features toegevoegd.&#10;Nu ga ik gewoon van de feature branches werken. &#10;&#10;- Code kan al gebruikt worden voor Beheerder en gedeeltelijk voor COA-medewerkers. Vandaag ga ik de rest afmaken, in principe is het alleen het connecten van de Actie klassen met de bij behoorde methodes, zodat ik op vrijdag groote deels van de features kan laten zien. &#10;&#10;- Vrijdag ochtend ga ik werken aan de testen, want dat is niet veel werk. Documentaties ook niet vergeten te maken.">
+      <option name="closed" value="true" />
+      <created>1718264743932</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1718264743932</updated>
+    </task>
+    <task id="LOCAL-00006" summary="80% procent af, Alleen nog kijken naar of alles met elkaar is geconnect en de Observer Pattern goed werkt. Dan nog even Code Smells weg halen die ik heb laten staan. In principe weet ik al wat ik testen, dus daar kan ik even naar kijken.">
+      <option name="closed" value="true" />
+      <created>1718360171862</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1718360171862</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Edit the classes a bit." />
+    <MESSAGE value="Added Files for documentation" />
+    <MESSAGE value="- Security toegevoegd&#10;- SOLID's en Patterns afgemaakt&#10;- JSON toegevoegd voor Gebruikers (kijken of het werkt)&#10;- Klassendiagram denk ik af...?" />
+    <MESSAGE value="Realisatie start" />
+    <MESSAGE value="50% procent van de features toegevoegd.&#10;Nu ga ik gewoon van de feature branches werken. &#10;&#10;- Code kan al gebruikt worden voor Beheerder en gedeeltelijk voor COA-medewerkers. Vandaag ga ik de rest afmaken, in principe is het alleen het connecten van de Actie klassen met de bij behoorde methodes, zodat ik op vrijdag groote deels van de features kan laten zien. &#10;&#10;- Vrijdag ochtend ga ik werken aan de testen, want dat is niet veel werk. Documentaties ook niet vergeten te maken." />
+    <MESSAGE value="50% procent van de features toegevoegd.&#10;Nu ga ik gewoon van de feature branches werken.&#10;&#10;- Code kan al gebruikt worden voor Beheerder en gedeeltelijk voor COA-medewerkers. Vandaag ga ik de rest afmaken, in principe is het alleen het connecten van de Actie klassen met de bij behoorde methodes, zodat ik op vrijdag groote deels van de features kan laten zien.&#10;&#10;- Vrijdag ochtend ga ik werken aan de testen, want dat is niet veel werk. Documentaties ook niet vergeten te maken." />
+    <MESSAGE value="Feature Branch" />
+    <MESSAGE value="80% procent af, Alleen nog kijken naar of alles met elkaar is geconnect en de Observer Pattern goed werkt. Dan nog even Code Smells weg halen die ik heb laten staan. In principe weet ik al wat ik testen, dus daar kan ik even naar kijken." />
+    <option name="LAST_COMMIT_MESSAGE" value="80% procent af, Alleen nog kijken naar of alles met elkaar is geconnect en de Observer Pattern goed werkt. Dan nog even Code Smells weg halen die ik heb laten staan. In principe weet ik al wat ik testen, dus daar kan ik even naar kijken." />
+  </component>
+</project>
