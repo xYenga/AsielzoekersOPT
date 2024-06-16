@@ -1,0 +1,20 @@
+
+Template Method Pattern:
+
+Het Template Method Pattern wordt toegepast door de klassen rondom Kamer. Elk type kamer krijgt een eigen toewijzingsRegels() toegewezen. Deze toewijzingsregels zijn ervoor gemaakt, zodat per kamer bepaalde
+vluchtelingen worden geplaatst. heeftGezin() wordt gebruikt om te controleren of de kamer geschikt is voor een gezin. geschiktVoorGender() controleert of de kamer alleen voor één gender beschikbaar is of voor beide
+(een voorbeeld hiervan is een gezinsKamer). geschiktVoorJongerenOnder18() checkt of de kamerleden jonger of ouder dan 18 moeten zijn om in aanmerking te komen. geschiktVoorVeiligLand() kijkt of de
+kamer geschikt is voor vluchtelingen uit veilige of onveilige landen. isNBOfOuderen() wordt gebruikt om te kijken of de kamer geschikt is voor non-binaire en oudere vluchtelingen. In de klasse Kamer wordt de structuur van de methode (Template Method) gedefinieerd. In de subklassen die Kamer implementeren, wordt deze methode verder volledig uitgewerkt op een manier die past bij de vereiste
+logica van de methode. Dit zorgt ervoor dat code niet steeds herhaald wordt, doordat het algemene skelet in de Kamer-klasse staat, en het maakt de code ook overzichtelijker.
+
+Observer Pattern:
+
+De Observer Pattern wordt toegepast door de klassen Vluchteling(subject) en AZC(observer). De klasse Vluctheling wordt als subject gebruikt om de observers aan te
+maken en ze ook weer te verwijderen. Ook wordt de klasse gebruikt door middel van de methode notifyObservers(), de observers te notificeren wanneer er aanpassingen in een dossier gebeurd. De notification
+wordt naar de AZC's' verstuurd, zodat zij ook op de hoogte zijn van alle aanpassingen rondom de vluchtelingen.
+
+
+Abstract Template Pattern: X
+
+
+
